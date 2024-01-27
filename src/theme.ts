@@ -36,6 +36,7 @@ const theme: Theme = {
   rounded: {
     small: "0.75rem",
     medium: "0.875rem",
+    full: "50%",
   },
 }
 

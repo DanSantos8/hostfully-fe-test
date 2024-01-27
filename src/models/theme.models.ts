@@ -34,5 +34,6 @@ export type Theme = {
   rounded: {
     small: string
     medium: string
+    full: string
   }
 }
