@@ -1,6 +1,9 @@
+import { useMemo } from "react"
 import * as S from "./PropertyCard.styles"
+import { Link } from "react-router-dom"
 
 type PropertyCardProps = {
+  id: number
   image: string
   title: string
   rate: number
@@ -11,6 +14,7 @@ type PropertyCardProps = {
 
 const PropertyCard = (props: PropertyCardProps) => {
   const {
+    id = "01",
     title = "São Vicente, Brasil",
     image = "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
     price = 345,
@@ -19,23 +23,27 @@ const PropertyCard = (props: PropertyCardProps) => {
     reference = "8 minuto(s) a pé até Itararé Beach",
   } = props
 
+  const url = useMemo(() => `/${id}`, [id])
+
   return (
-    <S.Container>
-      <S.Image src={image} />
-      <S.Description>
-        <S.Title>
-          <S.Text>{title}</S.Text>
-          <S.Rate>
-            <S.LightText>{rate}</S.LightText>
-          </S.Rate>
-        </S.Title>
-        <S.Reference>{reference}</S.Reference>
-      </S.Description>
-      <S.Price>
-        <S.Text>R$ {price}</S.Text>
-        <S.LightText>{priceType}</S.LightText>
-      </S.Price>
-    </S.Container>
+    <Link to={url}>
+      <S.Container>
+        <S.Image src={image} />
+        <S.Description>
+          <S.Title>
+            <S.Text>{title}</S.Text>
+            <S.Rate>
+              <S.LightText>{rate}</S.LightText>
+            </S.Rate>
+          </S.Title>
+          <S.Reference>{reference}</S.Reference>
+        </S.Description>
+        <S.Price>
+          <S.Text>R$ {price}</S.Text>
+          <S.LightText>{priceType}</S.LightText>
+        </S.Price>
+      </S.Container>
+    </Link>
   )
 }
 
