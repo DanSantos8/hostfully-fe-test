@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "cypress": "npx cypress open",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "json-server": "json-server --watch src/db/propertyList.json --port 5000"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
