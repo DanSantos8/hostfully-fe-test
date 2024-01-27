@@ -22,7 +22,6 @@ const arr = Array(12).fill({
 })
 
 export const Base: Story = {
-  args: {},
   render: () => (
     <PropertyList>
       {arr.map((property) => (

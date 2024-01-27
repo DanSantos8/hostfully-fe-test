@@ -18,4 +18,8 @@ export const GlobalStyles = createGlobalStyle`
   img {
     width: 100%;
   }
+
+  button {
+    cursor: pointer;
+  }
 `
