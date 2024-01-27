@@ -1,7 +1,7 @@
 import { colors, rounded, space, toRem, weight } from "../../../utils/helpers"
 import styled from "styled-components"
 
-export const Container = styled.a`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${space("medium")};
