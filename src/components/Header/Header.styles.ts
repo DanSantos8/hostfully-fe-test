@@ -7,7 +7,7 @@ export const Header = styled.header`
   align-items: center;
   padding: 0 ${space("xlarge")};
   justify-content: center;
-  border: 1px solid ${colors("border")};
+  border-bottom: 1px solid ${colors("border")};
 `
 
 export const ImageWrapper = styled.div`

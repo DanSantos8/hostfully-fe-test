@@ -18,7 +18,7 @@ export const colors =
 export const rounded =
   (key: keyof Theme["rounded"]) =>
   ({ theme }: { theme: Theme }) =>
-    theme.spacing[key]
+    theme.rounded[key]
 
 export const weight =
   (key: keyof Theme["weight"]) =>
