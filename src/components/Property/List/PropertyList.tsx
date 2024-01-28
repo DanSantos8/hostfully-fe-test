@@ -6,7 +6,7 @@ type PropertyListProps = {
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({ children }) => {
-  return <S.Container>{children}</S.Container>
+  return <S.Container data-testid="property-list">{children}</S.Container>
 }
 
 export default PropertyList
