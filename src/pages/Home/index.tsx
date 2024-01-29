@@ -6,7 +6,9 @@ import { fetchProperties } from "@/store/Properties/PropertiesSlice"
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { list, ...rest } = useAppSelector((state) => state.properties)
+  const { propertiesList, ...rest } = useAppSelector(
+    (state) => state.properties
+  )
 
   useEffect(() => {
     dispatch(fetchProperties())
@@ -14,7 +16,7 @@ const Home = () => {
 
   return (
     <S.Container>
-      <Property.List properties={list} {...rest} />
+      <Property.List properties={propertiesList} {...rest} />
     </S.Container>
   )
 }
