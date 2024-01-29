@@ -14,7 +14,10 @@ export const ContentWrapper = styled.div`
   width: 100%;
   padding-top: 70%;
   overflow: hidden;
-  border-radius: ${rounded("medium")};
+
+  img {
+    border-radius: ${rounded("medium")};
+  }
 `
 
 export const Content = styled.div`

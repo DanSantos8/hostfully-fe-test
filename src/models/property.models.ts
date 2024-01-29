@@ -1,4 +1,5 @@
 type Host = {
+  superhost: boolean
   name: string
   member_since: string
   response_rate: number

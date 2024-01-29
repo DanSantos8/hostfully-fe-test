@@ -23,7 +23,8 @@ const theme: Theme = {
     medium: "0.875rem",
     large: "1rem",
     xlarge: "1.125rem",
-    xxlarge: "1.5rem",
+    xxlarge: "1.25rem",
+    xxxlarge: "1.5rem",
     huge: "2rem",
   },
   weight: {

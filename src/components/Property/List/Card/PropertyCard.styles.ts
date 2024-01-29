@@ -1,4 +1,10 @@
-import { colors, rounded, space, toRem, weight } from "../../../utils/helpers"
+import {
+  colors,
+  rounded,
+  space,
+  toRem,
+  weight,
+} from "../../../../utils/helpers"
 import styled from "styled-components"
 
 export const Container = styled.div`

@@ -1,5 +1,5 @@
+import PropertyGallery from "../../Detail/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
-import Carousel from "@/components/Carousel"
 
 type PropertyCardProps = {
   id: string
@@ -25,15 +25,9 @@ const PropertyCard = (props: PropertyCardProps) => {
 
   //const url = useMemo(() => `/${id}`, [id])
 
-  const hasControls = images.length > 1
-
   return (
     <S.Container>
-      <Carousel controls={hasControls}>
-        {images.map((image) => (
-          <S.Image src={image} />
-        ))}
-      </Carousel>
+      <PropertyGallery images={images} />
 
       <S.Description>
         <S.Title>

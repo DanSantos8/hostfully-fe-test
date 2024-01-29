@@ -1,6 +1,9 @@
-import PropertyCard from "./Card/PropertyCard"
+import PropertyDetail from "./Detail/PropertyDetail"
 import PropertyList from "./List/PropertyList"
 
-const Property = { List: PropertyList, Card: PropertyCard }
+const Property = {
+  List: PropertyList,
+  Detail: PropertyDetail,
+}
 
 export default Property

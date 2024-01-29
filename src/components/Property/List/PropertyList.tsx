@@ -1,4 +1,4 @@
-import PropertyCard from "../Card/PropertyCard"
+import PropertyCard from "./Card/PropertyCard"
 import * as S from "./PropertyList.styles"
 import { Property } from "@/models/property.models"
 
@@ -17,7 +17,7 @@ const PropertyList = (props: PropertyListProps) => {
   return (
     <S.Container data-testid="property-list">
       {properties.map((property) => (
-        <PropertyCard {...property} />
+        <PropertyCard key={property.id} {...property} />
       ))}
     </S.Container>
   )

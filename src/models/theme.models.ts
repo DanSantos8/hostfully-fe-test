@@ -22,6 +22,7 @@ export type Theme = {
     large: string
     xlarge: string
     xxlarge: string
+    xxxlarge: string
     huge: string
   }
   weight: {
