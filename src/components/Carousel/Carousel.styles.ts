@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 50%;
+  padding-top: 70%;
   overflow: hidden;
   border-radius: ${rounded("medium")};
 `

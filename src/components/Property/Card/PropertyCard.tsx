@@ -1,49 +1,54 @@
-import { useMemo } from "react"
 import * as S from "./PropertyCard.styles"
-import { Link } from "react-router-dom"
+import Carousel from "@/components/Carousel"
 
 type PropertyCardProps = {
-  id: number
-  image: string
+  id: string
+  images: string[]
+  location: string
+  rating: number
   title: string
-  rate: number
-  reference: string
   price: number
-  priceType: string
 }
 
 const PropertyCard = (props: PropertyCardProps) => {
   const {
-    id = "01",
-    title = "São Vicente, Brasil",
-    image = "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
+    //id = "01",
+    location = "São Vicente, Brasil",
+    images = [
+      "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
+      "https://www.bproperty.com/blog/wp-content/uploads/2021/04/house-1867187_1920.jpg",
+    ],
     price = 345,
-    priceType = "noite",
-    rate = 4.97,
-    reference = "8 minuto(s) a pé até Itararé Beach",
+    rating = 4.97,
+    title = "8 minuto(s) a pé até Itararé Beach",
   } = props
 
-  const url = useMemo(() => `/${id}`, [id])
+  //const url = useMemo(() => `/${id}`, [id])
+
+  const hasControls = images.length > 1
 
   return (
-    <Link to={url}>
-      <S.Container>
-        <S.Image src={image} />
-        <S.Description>
-          <S.Title>
-            <S.Text>{title}</S.Text>
-            <S.Rate>
-              <S.LightText>{rate}</S.LightText>
-            </S.Rate>
-          </S.Title>
-          <S.Reference>{reference}</S.Reference>
-        </S.Description>
-        <S.Price>
-          <S.Text>R$ {price}</S.Text>
-          <S.LightText>{priceType}</S.LightText>
-        </S.Price>
-      </S.Container>
-    </Link>
+    <S.Container>
+      <Carousel controls={hasControls}>
+        {images.map((image) => (
+          <S.Image src={image} />
+        ))}
+      </Carousel>
+
+      <S.Description>
+        <S.Title>
+          <S.Text>{location}</S.Text>
+          <S.Rate>
+            <S.LightText>{rating}</S.LightText>
+          </S.Rate>
+        </S.Title>
+        <S.Reference>{title}</S.Reference>
+      </S.Description>
+      <S.Price>
+        <S.Text>R$ {price}</S.Text>
+        <S.LightText>noite</S.LightText>
+      </S.Price>
+    </S.Container>
   )
 }
 

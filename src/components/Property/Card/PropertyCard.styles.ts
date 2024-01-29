@@ -6,6 +6,8 @@ export const Container = styled.div`
   flex-direction: column;
   gap: ${space("medium")};
   max-width: ${toRem(375)};
+  height: 100%;
+  width: 100%;
 `
 export const Image = styled.img`
   border-radius: ${rounded("medium")};

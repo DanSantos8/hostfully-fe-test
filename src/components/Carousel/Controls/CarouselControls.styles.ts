@@ -12,8 +12,8 @@ export const Container = styled.div`
 
 export const Button = styled.button`
   transition: box-shadow 0.1s linear;
-  width: ${toRem(30)};
-  height: ${toRem(30)};
+  width: ${toRem(24)};
+  height: ${toRem(24)};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ export const Button = styled.button`
   background-color: ${colors("background")};
   border: 1px solid ${colors("border")};
   position: absolute;
-  top: calc(50% - ${toRem(15)});
+  top: calc(50% - ${toRem(12)});
 
   &:hover {
     box-shadow: 0 0 4px 1px #000;
