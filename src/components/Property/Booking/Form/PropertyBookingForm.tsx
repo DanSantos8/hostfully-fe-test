@@ -4,6 +4,7 @@ import "react-dates/initialize"
 import "react-dates/lib/css/_datepicker.css"
 import { BookedPeriod } from "@/models/property.models"
 import usePropertyBookingForm from "@/hooks/usePropertyBookingForm"
+import Loading from "@/components/Loading/Loading"
 
 type PropertyBookingFormProps = {
   id: string
@@ -13,6 +14,7 @@ type PropertyBookingFormProps = {
   maxGuests: number
   bookedPeriods: BookedPeriod[]
   cleaningFee: number
+  isLoading: boolean
 }
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
@@ -24,6 +26,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     maxGuests,
     bookedPeriods,
     cleaningFee,
+    isLoading,
   } = props
   const [startAvailability, endAvailability] = availability
 
@@ -105,7 +108,9 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             </S.GuestControl>
           </S.GuestColumn>
         </S.Guests>
-        <S.Button onClick={(e) => handleSubmit(e)}>Reservar</S.Button>
+        <S.Button onClick={(e) => handleSubmit(e)} disabled={isLoading}>
+          {isLoading ? <Loading /> : "Reservar"}
+        </S.Button>
       </S.Form>
       <S.Summary>
         <S.SummaryRow>

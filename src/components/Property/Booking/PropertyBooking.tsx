@@ -3,6 +3,7 @@ import * as S from "./PropertyBooking.styles"
 import PropertyBookingForm from "./Form/PropertyBookingForm"
 
 const PropertyBooking = () => {
+  const store = useAppSelector((state) => state.properties)
   const {
     id,
     price,
@@ -11,7 +12,9 @@ const PropertyBooking = () => {
     maxGuest,
     booked_periods,
     cleaningFee,
-  } = useAppSelector((state) => state.properties.propertyDetail)
+  } = store.propertyDetail
+
+  const { loading } = store
 
   return (
     <S.Container>
@@ -23,6 +26,7 @@ const PropertyBooking = () => {
         bookedPeriods={booked_periods}
         cleaningFee={cleaningFee}
         id={id}
+        isLoading={loading}
       />
     </S.Container>
   )
