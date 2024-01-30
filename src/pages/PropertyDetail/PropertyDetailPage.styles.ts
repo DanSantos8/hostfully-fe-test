@@ -12,13 +12,14 @@ export const Information = styled.div`
   flex-direction: column;
   gap: ${space("large")};
   flex: 1;
+  max-width: ${toRem(800)};
 `
 
 export const Booking = styled.div`
   display: flex;
   flex: 1;
   position: relative;
-  max-width: ${toRem(375)};
+  max-width: ${toRem(400)};
 
   > div {
     position: sticky;
