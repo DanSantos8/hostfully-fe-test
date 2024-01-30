@@ -1,4 +1,4 @@
-import { rounded, space, toRem } from "@/utils/helpers"
+import { space, toRem } from "@/utils/helpers"
 import styled from "styled-components"
 
 export const Container = styled.div`
@@ -25,8 +25,5 @@ export const Booking = styled.div`
     top: ${toRem(120)};
     right: 0;
     width: 100%;
-    height: 400px;
-    background-color: black;
-    border-radius: ${rounded("medium")};
   }
 `

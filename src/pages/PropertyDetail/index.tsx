@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom"
-import * as S from "./PropertyDetail.styles"
+import * as S from "./PropertyDetailPage.styles"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/hooks/useStore"
 import { fetchPropertyById } from "@/store/Properties/PropertiesSlice"
 import Property from "@/components/Property"
+
 const PropertyDetailPage = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams()
@@ -20,7 +21,7 @@ const PropertyDetailPage = () => {
         <Property.Detail />
       </S.Information>
       <S.Booking>
-        <div></div>
+        <Property.Booking />
       </S.Booking>
     </S.Container>
   )
