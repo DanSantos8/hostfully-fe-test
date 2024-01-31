@@ -1,4 +1,5 @@
 import { colors, space, toRem } from "@/utils/helpers"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export const Header = styled.header`
@@ -13,7 +14,7 @@ export const Header = styled.header`
   z-index: 90;
 `
 
-export const ImageWrapper = styled.div`
+export const ImageWrapper = styled(Link)`
   display: flex;
   height: ${toRem(40)};
 `

@@ -1,5 +1,6 @@
 import PropertyGallery from "../../Detail/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
+import { useMemo } from "react"
 
 type PropertyCardProps = {
   id: string
@@ -12,7 +13,7 @@ type PropertyCardProps = {
 
 const PropertyCard = (props: PropertyCardProps) => {
   const {
-    //id = "01",
+    id,
     location = "São Vicente, Brasil",
     images = [
       "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
@@ -23,12 +24,11 @@ const PropertyCard = (props: PropertyCardProps) => {
     title = "8 minuto(s) a pé até Itararé Beach",
   } = props
 
-  //const url = useMemo(() => `/${id}`, [id])
+  const url = useMemo(() => `/property-detail/${id}`, [id])
 
   return (
-    <S.Container>
+    <S.Container to={url}>
       <PropertyGallery images={images} />
-
       <S.Description>
         <S.Title>
           <S.Text>{location}</S.Text>
