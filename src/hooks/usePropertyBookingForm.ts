@@ -122,25 +122,6 @@ const usePropertyBookingForm = (props: usePropertyBookingForm) => {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e?.preventDefault()
-    const format = (date: Moment) => moment(date).format("YYYY-MM-DD")
-    const newPeriod = [
-      ...bookedPeriods,
-      {
-        start_date: format(startDate as Moment),
-        end_date: format(endDate as Moment),
-      },
-    ]
-
-    dispatch(
-      addBookedPeriod({
-        propertyId: id,
-        newPeriod,
-      })
-    )
-  }
-
   const hasPromoPrice = useMemo(
     () => regularPrice > price,
     [price, regularPrice]
@@ -166,6 +147,26 @@ const usePropertyBookingForm = (props: usePropertyBookingForm) => {
     },
     []
   )
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e?.preventDefault()
+    const format = (date: Moment) => moment(date).format("YYYY-MM-DD")
+    const bookedPeriod = {
+      start_date: format(startDate as Moment),
+      end_date: format(endDate as Moment),
+    }
+    const newPeriod = [...bookedPeriods, bookedPeriod]
+
+    dispatch(
+      addBookedPeriod({
+        propertyId: id,
+        newPeriod,
+        bookedPeriod,
+        guests,
+        nightsBooked: bookedDays,
+      })
+    )
+  }
 
   useEffect(() => {
     initDates(startAvailability, endAvailability)

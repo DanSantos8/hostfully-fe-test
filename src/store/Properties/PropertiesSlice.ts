@@ -1,5 +1,7 @@
-import { Property } from "@/models/property.models"
+import client from "@/api/api"
+import { BookedPeriod, Property } from "@/models/property.models"
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
+import axios from "axios"
 
 type PropertiesState = {
   propertiesList: Property[]
@@ -11,9 +13,8 @@ type PropertiesState = {
 export const fetchProperties = createAsyncThunk<Property[]>(
   "properties/fetchProperties",
   async () => {
-    const response = await fetch("http://localhost:5000/properties")
-    const properties: Property[] = await response.json()
-    return properties
+    const response = await client.get("/properties")
+    return response.data
   }
 )
 
@@ -21,19 +22,16 @@ export const fetchPropertyById = createAsyncThunk<Property, string>(
   "properties/fetchPropertyById",
   async (propertyId, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/properties/${propertyId}`
-      )
+      const response = await client.get(`properties/${propertyId}`)
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         return rejectWithValue(`Not Found: ${response.status}`)
       }
 
-      const property: Property = await response.json()
-      return property
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message)
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data)
       }
 
       return rejectWithValue("An unknown error occurred")
@@ -45,24 +43,26 @@ export const addBookedPeriod = createAsyncThunk(
   "properties/addBookedPeriod",
   async (props: {
     propertyId: string
-    newPeriod: {
-      start_date: string
-      end_date: string
-    }[]
+    bookedPeriod: BookedPeriod
+    newPeriod: BookedPeriod[]
+    nightsBooked: number
+    guests: number
   }) => {
-    const { newPeriod, propertyId } = props
-    const response = await fetch(
-      `http://localhost:5000/properties/${propertyId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ booked_periods: newPeriod }),
-      }
-    )
-    const property = await response.json()
-    return property
+    const { newPeriod, propertyId, bookedPeriod, guests, nightsBooked } = props
+
+    const response = await client.patch(`properties/${propertyId}`, {
+      booked_periods: newPeriod,
+    })
+
+    return {
+      property: { ...response.data },
+      booking: {
+        createdAt: new Date(),
+        period: bookedPeriod,
+        nightsBooked,
+        guests,
+      },
+    }
   }
 )
 
@@ -136,7 +136,7 @@ const propertiesSlice = createSlice({
       .addCase(addBookedPeriod.fulfilled, (state, action) => {
         state.loading = false
 
-        state.propertyDetail = action.payload
+        state.propertyDetail = action.payload.property
       })
       .addCase(addBookedPeriod.rejected, (state, action) => {
         state.loading = false
@@ -144,5 +144,7 @@ const propertiesSlice = createSlice({
       })
   },
 })
+
+export const addUserBookedPeriod = addBookedPeriod.fulfilled
 
 export default propertiesSlice.reducer

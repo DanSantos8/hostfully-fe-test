@@ -108,7 +108,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             </S.GuestControl>
           </S.GuestColumn>
         </S.Guests>
-        <S.Button onClick={(e) => handleSubmit(e)} disabled={isLoading}>
+        <S.Button disabled={isLoading} onClick={(e) => handleSubmit(e)}>
           {isLoading ? <Loading /> : "Reservar"}
         </S.Button>
       </S.Form>

@@ -10,7 +10,14 @@ const Tags = (props: TagsProps) => {
   const { tags = [], variant = "medium" } = props
   return (
     <S.Tags>
-      {tags.map((tag) => tag && <S.Text variant={variant}>{tag}</S.Text>)}
+      {tags.map(
+        (tag) =>
+          tag && (
+            <S.Text key={tag} variant={variant}>
+              {tag}
+            </S.Text>
+          )
+      )}
     </S.Tags>
   )
 }

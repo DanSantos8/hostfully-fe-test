@@ -19,7 +19,7 @@ const PropertyBookingList = () => {
         }
 
         return (
-          <PropertyBookingCard {...props}>
+          <PropertyBookingCard {...props} key={String(booking.createdAt)}>
             <PropertyBookingCardActions>
               <PropertyBookingForm
                 bookedPeriods={property.booked_periods}

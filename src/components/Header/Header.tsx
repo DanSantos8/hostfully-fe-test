@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Image from "../Image"
 import * as S from "./Header.styles"
 
@@ -10,6 +11,9 @@ const Header = () => {
           alt="Hostfully"
         />
       </S.ImageWrapper>
+      <div>
+        <Link to="/my-bookings">My Bookings</Link>
+      </div>
     </S.Header>
   )
 }

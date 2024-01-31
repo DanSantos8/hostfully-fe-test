@@ -25,7 +25,6 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
     nightsBooked = 1,
     price = 0,
   } = props
-  moment.locale("pt-br")
 
   const { start_date, end_date } = bookedPeriod
 
