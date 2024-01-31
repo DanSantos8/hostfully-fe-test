@@ -6,5 +6,4 @@ export const Container = styled.div`
   width: 100%;
   gap: ${space("xxlarge")} ${space("large")};
   grid-template-columns: repeat(auto-fit, minmax(${toRem(280)}, 1fr));
-  place-items: center;
 `

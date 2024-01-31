@@ -1,26 +1,12 @@
-import PropertyCard from "./Card/PropertyCard"
+import React, { ReactNode } from "react"
 import * as S from "./PropertyList.styles"
-import { Property } from "@/models/property.models"
 
 type PropertyListProps = {
-  properties: Property[]
+  children: ReactNode
 }
 
-const PropertyList = (props: PropertyListProps) => {
-  const { properties } = props
-
-  if (!properties) {
-    //TODO add empty list component
-    return <div>Empty</div>
-  }
-
-  return (
-    <S.Container data-testid="property-list">
-      {properties.map((property) => (
-        <PropertyCard key={property.id} {...property} />
-      ))}
-    </S.Container>
-  )
+const PropertyList: React.FC<PropertyListProps> = ({ children }) => {
+  return <S.Container data-testid="property-list">{children}</S.Container>
 }
 
 export default PropertyList

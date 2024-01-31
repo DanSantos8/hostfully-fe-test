@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/hooks/useStore"
-import PropertyCarousel from "./PropertyCarousel"
+import PropertyCarousel from "../Carousel/PropertyCarousel"
 import * as S from "./PropertyDetail.styles"
 import PropertyTags from "../../Tags/Tags"
 import Rating from "@/components/Rating"

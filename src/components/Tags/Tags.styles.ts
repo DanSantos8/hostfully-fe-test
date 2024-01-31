@@ -11,8 +11,9 @@ import styled from "styled-components"
 
 export const Tags = styled.div`
   display: flex;
-  gap: ${space("small")};
+  gap: 0 ${space("small")};
   align-items: center;
+  flex-wrap: wrap;
 `
 
 export const Text = styled.span<{ variant: keyof Theme["fontSize"] }>`

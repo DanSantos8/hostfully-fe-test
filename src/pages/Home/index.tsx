@@ -3,12 +3,12 @@ import * as S from "./Home.styles"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { useEffect } from "react"
 import { fetchProperties } from "@/store/Properties/PropertiesSlice"
+import PropertyCard from "@/components/Property/List/Card/PropertyCard"
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const { propertiesList, ...rest } = useAppSelector(
-    (state) => state.properties
-  )
+  //REFACTOR
+  const { propertiesList } = useAppSelector((state) => state.properties)
 
   useEffect(() => {
     dispatch(fetchProperties())
@@ -16,7 +16,11 @@ const Home = () => {
 
   return (
     <S.Container>
-      <Property.List properties={propertiesList} {...rest} />
+      <Property.List>
+        {propertiesList.map((property) => (
+          <PropertyCard key={property.id} {...property} />
+        ))}
+      </Property.List>
     </S.Container>
   )
 }

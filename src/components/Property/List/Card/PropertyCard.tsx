@@ -1,4 +1,4 @@
-import PropertyGallery from "../../Detail/PropertyCarousel"
+import PropertyGallery from "../../Carousel/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
 import { useMemo } from "react"
 

@@ -1,8 +1,8 @@
 import { useAppSelector } from "@/hooks/useStore"
-import * as S from "./PropertyBooking.styles"
-import PropertyBookingForm from "./Form/PropertyBookingForm"
+import * as S from "./PropertyDetailBooking.styles"
+import PropertyBookingForm from "../../Booking/Form/PropertyBookingForm"
 
-const PropertyBooking = () => {
+const PropertyDetailBooking = () => {
   const store = useAppSelector((state) => state.properties)
   const {
     id,
@@ -32,4 +32,4 @@ const PropertyBooking = () => {
   )
 }
 
-export default PropertyBooking
+export default PropertyDetailBooking
