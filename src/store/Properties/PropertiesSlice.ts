@@ -79,6 +79,19 @@ export const updatePropertyBookedPeriod = createAsyncThunk(
   }
 )
 
+export const deletePropertyBookedPeriod = createAsyncThunk(
+  "properties/deletePropertyBookedPeriod",
+  async (props: { propertyId: number; newBookedPeriods: BookedPeriod[] }) => {
+    const { newBookedPeriods, propertyId } = props
+
+    const response = await client.patch(`properties/${propertyId}`, {
+      booked_periods: newBookedPeriods,
+    })
+
+    return response
+  }
+)
+
 const initialState: PropertiesState = {
   propertiesList: [],
   propertyDetail: {

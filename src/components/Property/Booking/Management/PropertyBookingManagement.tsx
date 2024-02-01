@@ -9,9 +9,10 @@ type PropertyBookingManagement = {
 }
 const PropertyBookingManagement = (props: PropertyBookingManagement) => {
   const { children, onClose } = props
-  const { handleAction, action, ...rest } = usePropertyBookingManagement({
-    onClose,
-  })
+  const { handleAction, action, handleDeleteBooking, ...rest } =
+    usePropertyBookingManagement({
+      onClose,
+    })
 
   const actions = {
     0: (
@@ -26,7 +27,9 @@ const PropertyBookingManagement = (props: PropertyBookingManagement) => {
     2: (
       <S.Cancel>
         <S.Title>Are you sure?</S.Title>
-        <S.UpdateButton>Yes, I want to cancel it.</S.UpdateButton>
+        <S.UpdateButton onClick={handleDeleteBooking}>
+          Yes, I want to cancel it.
+        </S.UpdateButton>
         <S.Button onClick={handleAction(0)}>Go back</S.Button>
       </S.Cancel>
     ),

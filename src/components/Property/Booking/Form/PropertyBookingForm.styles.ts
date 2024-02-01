@@ -41,6 +41,8 @@ export const Form = styled.form`
   gap: ${space("medium")};
 `
 export const Calendar = styled.div`
+  position: relative;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   gap: 4px;

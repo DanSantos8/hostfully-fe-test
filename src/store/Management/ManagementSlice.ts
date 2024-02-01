@@ -1,7 +1,8 @@
-import { BookedPeriod } from "@/models/property.models"
+import { BookedPeriod, Property } from "@/models/property.models"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RootState } from ".."
 import axios from "axios"
+import client from "@/api/api"
 
 type PropertyManagementState = {
   property: {
@@ -68,6 +69,45 @@ export const fetchPropertyFromMyBookings = createAsyncThunk(
   }
 )
 
+type deleteUserPropertyBookingProps = {
+  bookingId: number
+  propertyId: number
+  period: BookedPeriod
+}
+
+export const deleteUserPropertyBooking = createAsyncThunk(
+  "propertyManagement/deleteUserPropertyBooking",
+  async (props: deleteUserPropertyBookingProps, { rejectWithValue }) => {
+    const { period, propertyId, bookingId } = props
+    try {
+      const res = await client.get<Property>(`/properties/${propertyId}`)
+
+      const updatedPropertyBookedPeriods = res.data.booked_periods.filter(
+        (response) =>
+          response.start_date !== period.start_date &&
+          response.end_date !== period.end_date
+      )
+
+      return {
+        user: {
+          bookingId,
+          propertyId,
+        },
+        property: {
+          propertyId,
+          bookedPeriods: updatedPropertyBookedPeriods,
+        },
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data)
+      }
+
+      return rejectWithValue("An unknown error occurred")
+    }
+  }
+)
+
 const propertyManagementSlice = createSlice({
   name: "propertyManagement",
   initialState,
@@ -97,7 +137,17 @@ const propertyManagementSlice = createSlice({
         state.loading = false
         state.error = action.error.message
       })
+      .addCase(deleteUserPropertyBooking.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(deleteUserPropertyBooking.fulfilled, () => {})
+      .addCase(deleteUserPropertyBooking.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message
+      })
   },
 })
+
+export const deletePropertyBooking = deleteUserPropertyBooking.fulfilled
 
 export default propertyManagementSlice.reducer

@@ -1,8 +1,14 @@
 import useBookingForm from "@/hooks/useBookingForm"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
-import { fetchPropertyFromMyBookings } from "@/store/Management/ManagementSlice"
-import { updatePropertyBookedPeriod } from "@/store/Properties/PropertiesSlice"
+import {
+  deleteUserPropertyBooking,
+  fetchPropertyFromMyBookings,
+} from "@/store/Management/ManagementSlice"
+import {
+  deletePropertyBookedPeriod,
+  updatePropertyBookedPeriod,
+} from "@/store/Properties/PropertiesSlice"
 import {
   updateUserPropertyBooking,
   updateUserPropertyBookingProps,
@@ -14,6 +20,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 interface usePropertyBookingManagement extends PropertyBookingFormProps {
   handleAction: (value: number) => () => void
   action: number
+  handleDeleteBooking: () => void
 }
 
 const usePropertyBookingManagement = ({
@@ -26,6 +33,13 @@ const usePropertyBookingManagement = ({
   const [action, setAction] = useState(0)
   const navigate = useNavigate()
   const location = useLocation()
+  const bookingFormValues = useBookingForm({
+    bookedPeriods: property.bookedPeriods,
+    cleaningFee: property.cleaningFee,
+    maxGuest: property.maxGuest,
+    price: property.price,
+    regularPrice: property.regularPrice,
+  })
 
   const { user } = property
 
@@ -46,14 +60,6 @@ const usePropertyBookingManagement = ({
       { replace: true }
     )
   }, [location.search, location.pathname, navigate])
-
-  const bookingFormValues = useBookingForm({
-    bookedPeriods: property.bookedPeriods,
-    cleaningFee: property.cleaningFee,
-    maxGuest: property.maxGuest,
-    price: property.price,
-    regularPrice: property.regularPrice,
-  })
 
   const handleAction = (value: number) => () => setAction(value)
 
@@ -96,6 +102,27 @@ const usePropertyBookingManagement = ({
       })
   }
 
+  const handleDeleteBooking = () => {
+    dispatch(
+      deleteUserPropertyBooking({
+        bookingId: property.id,
+        period: property.user.bookedPeriod,
+        propertyId: property.propertyId,
+      })
+    )
+      .unwrap()
+      .then((data) => {
+        dispatch(
+          deletePropertyBookedPeriod({
+            newBookedPeriods: data.property.bookedPeriods,
+            propertyId: data.property.propertyId,
+          })
+        )
+        removeBookingId()
+        onClose()
+      })
+  }
+
   useEffect(() => {
     dispatch(fetchPropertyFromMyBookings(getBookingId()))
   }, [dispatch, getBookingId])
@@ -103,12 +130,13 @@ const usePropertyBookingManagement = ({
   return {
     handleAction,
     action,
-    ...bookingFormValues,
-    price: property?.price || 0,
-    regularPrice: property?.regularPrice || 0,
+    price: property.price,
+    regularPrice: property.regularPrice,
     handleSubmit,
-    maxGuest: property?.maxGuest || 0,
+    maxGuest: property.maxGuest,
     loading: false,
+    handleDeleteBooking,
+    ...bookingFormValues,
   }
 }
 

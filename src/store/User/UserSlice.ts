@@ -2,6 +2,7 @@ import { BookedPeriod, Property } from "@/models/property.models"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { addUserBookedPeriod } from "../Properties/PropertiesSlice"
 import axios from "axios"
+import { deletePropertyBooking } from "../Management/ManagementSlice"
 
 type UserState = {
   id: number
@@ -27,7 +28,7 @@ export type updateUserPropertyBookingProps = {
 }
 
 export const updateUserPropertyBooking = createAsyncThunk(
-  "propertyManagement/updateUserPropertyBooking",
+  "user/updateUserPropertyBooking",
   async (property: updateUserPropertyBookingProps, { rejectWithValue }) => {
     const {
       bookingId,
@@ -63,6 +64,7 @@ export const updateUserPropertyBooking = createAsyncThunk(
     }
   }
 )
+
 const initialState: UserState = {
   id: 1,
   name: "Daniel",
@@ -131,9 +133,9 @@ const userSlice = createSlice({
           }
 
           //UPDATING THE BOOKED_PERIODS FOR THE OTHERS BOOKINGS THATS EQUALS TO MY CURRENT
-          if (
+          const isMyPropertyBooked =
             Number(myBooking.property.id) === action.payload.property.propertyId
-          ) {
+          if (isMyPropertyBooked) {
             return {
               ...myBooking,
               property: {
@@ -150,6 +152,31 @@ const userSlice = createSlice({
       .addCase(updateUserPropertyBooking.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message
+      })
+      .addCase(deletePropertyBooking, (state, action) => {
+        const payload = action.payload
+
+        const filteredMyBookings = state.myBookings.filter(
+          (myBooking) => myBooking.id !== payload.user.bookingId
+        )
+
+        const updatedMyBookings = filteredMyBookings.map((myBooking) => {
+          if (Number(myBooking.property.id) === payload.user.propertyId) {
+            return {
+              ...myBooking,
+              property: {
+                ...myBooking.property,
+                booked_periods: payload.property.bookedPeriods,
+              },
+            }
+          }
+          return myBooking
+        })
+
+        return {
+          ...state,
+          myBookings: updatedMyBookings,
+        }
       })
   },
 })
