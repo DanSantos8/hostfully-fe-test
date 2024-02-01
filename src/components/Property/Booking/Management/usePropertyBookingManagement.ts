@@ -92,7 +92,7 @@ const usePropertyBookingManagement = ({
       .then((data) => {
         dispatch(
           updatePropertyBookedPeriod({
-            newBookedPeriods: data.property.newBookedPeriods,
+            updatedBookedPeriods: data.property.newBookedPeriods,
             propertyId: data.property.propertyId,
           })
         )

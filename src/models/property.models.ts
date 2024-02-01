@@ -63,5 +63,4 @@ export interface PropertyBookingFormProps {
   handleGuestsCount: (value: number) => () => void
   handleSubmit: (e: React.FormEvent<Element>) => void
   loading: boolean
-  isOutsideRange: (day: Moment) => boolean
 }

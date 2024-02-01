@@ -25,7 +25,20 @@
         "2024-04-01",
         "2024-04-10"
       ],
-      "booked_periods": [],
+      "booked_periods": [
+        {
+          "start_date": "2024-02-01",
+          "end_date": "2024-02-03"
+        },
+        {
+          "start_date": "2024-02-04",
+          "end_date": "2024-02-06"
+        },
+        {
+          "start_date": "2024-02-11",
+          "end_date": "2024-02-14"
+        }
+      ],
       "images": [
         "https://images.pexels.com/photos/3288100/pexels-photo-3288100.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/3288102/pexels-photo-3288102.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",

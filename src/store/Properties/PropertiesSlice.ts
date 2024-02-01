@@ -1,7 +1,16 @@
 import client from "@/api/api"
+import {
+  fetchPropertiesApi,
+  fetchPropertyByIdApi,
+  updatePropertyApi,
+} from "@/api/propertiesApi"
 import { BookedPeriod, Property } from "@/models/property.models"
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-import axios from "axios"
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  SerializedError,
+} from "@reduxjs/toolkit"
 
 type PropertiesState = {
   propertiesList: Property[]
@@ -10,33 +19,14 @@ type PropertiesState = {
   error: string | null | undefined
 }
 
-export const fetchProperties = createAsyncThunk<Property[]>(
+export const fetchProperties = createAsyncThunk(
   "properties/fetchProperties",
-  async () => {
-    const response = await client.get("/properties")
-    return response.data
-  }
+  fetchPropertiesApi
 )
 
-export const fetchPropertyById = createAsyncThunk<Property, string>(
+export const fetchPropertyById = createAsyncThunk(
   "properties/fetchPropertyById",
-  async (propertyId, { rejectWithValue }) => {
-    try {
-      const response = await client.get(`properties/${propertyId}`)
-
-      if (response.status !== 200) {
-        return rejectWithValue(`Not Found: ${response.status}`)
-      }
-
-      return response.data
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data)
-      }
-
-      return rejectWithValue("An unknown error occurred")
-    }
-  }
+  fetchPropertyByIdApi
 )
 
 export const addBookedPeriod = createAsyncThunk(
@@ -67,15 +57,13 @@ export const addBookedPeriod = createAsyncThunk(
 )
 
 export const updatePropertyBookedPeriod = createAsyncThunk(
-  "properties/updateBookedPeriod",
-  async (props: { propertyId: number; newBookedPeriods: BookedPeriod[] }) => {
-    const { newBookedPeriods, propertyId } = props
-
-    const response = await client.patch(`properties/${propertyId}`, {
-      booked_periods: newBookedPeriods,
-    })
-
-    return response
+  "properties/updateProperty",
+  async (props: {
+    propertyId: number
+    updatedBookedPeriods: BookedPeriod[]
+  }) => {
+    const { propertyId, updatedBookedPeriods } = props
+    return updatePropertyApi(propertyId, updatedBookedPeriods)
   }
 )
 
@@ -123,61 +111,51 @@ const initialState: PropertiesState = {
   error: null,
 }
 
+const setLoading = (state: PropertiesState) => {
+  state.loading = true
+}
+
+const setError = (
+  state: PropertiesState,
+  action: PayloadAction<unknown, string, never, SerializedError>
+) => {
+  state.error = action.error.message
+  state.loading = false
+}
+
 const propertiesSlice = createSlice({
   name: "properties",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProperties.pending, (state) => {
-        state.loading = true
-      })
+      .addCase(fetchProperties.pending, setLoading)
       .addCase(
         fetchProperties.fulfilled,
         (state, action: PayloadAction<Property[]>) => {
-          state.loading = false
           state.propertiesList = action.payload
+          state.loading = false
         }
       )
-      .addCase(fetchProperties.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-      })
-      .addCase(fetchPropertyById.pending, (state) => {
-        state.loading = true
-      })
+      .addCase(fetchProperties.rejected, setError)
+      .addCase(fetchPropertyById.pending, setLoading)
       .addCase(fetchPropertyById.fulfilled, (state, action) => {
         state.loading = false
         state.propertyDetail = action.payload
       })
-      .addCase(fetchPropertyById.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.payload
-          ? String(action.payload)
-          : "Could not fetch property"
-      })
-      .addCase(addBookedPeriod.pending, (state) => {
-        state.loading = true
-      })
+      .addCase(fetchPropertyById.rejected, setError)
+      .addCase(addBookedPeriod.pending, setLoading)
       .addCase(addBookedPeriod.fulfilled, (state, action) => {
         state.loading = false
 
         state.propertyDetail = action.payload.property
       })
-      .addCase(addBookedPeriod.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-      })
-      .addCase(updatePropertyBookedPeriod.pending, (state) => {
-        state.loading = true
-      })
+      .addCase(addBookedPeriod.rejected, setError)
+      .addCase(updatePropertyBookedPeriod.pending, setLoading)
       .addCase(updatePropertyBookedPeriod.fulfilled, (state) => {
         state.loading = false
       })
-      .addCase(updatePropertyBookedPeriod.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-      })
+      .addCase(updatePropertyBookedPeriod.rejected, setError)
   },
 })
 
