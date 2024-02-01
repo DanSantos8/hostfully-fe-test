@@ -18,6 +18,7 @@ const PropertyBookingList = () => {
           guests: booking.guests,
           nightsBooked: booking.nightsBooked,
           price: property.price,
+          images: property.images,
         }
 
         const addQueryParam = () => {

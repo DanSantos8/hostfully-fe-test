@@ -4,7 +4,7 @@ import styled from "styled-components"
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${space("large")};
+  gap: ${space("small")};
 `
 
 export const Buttons = styled.div`
@@ -31,4 +31,10 @@ export const UpdateButton = styled(Button)`
   background-color: ${colors("primary")};
   color: white;
   font-weight: ${weight("semibold")};
+`
+
+export const GoBack = styled(Button)`
+  background-color: transparent;
+  margin: auto;
+  padding: 0;
 `

@@ -27,6 +27,10 @@ const usePropertyBookingManagement = (): usePropertyBookingManagement => {
     maxGuest: property.maxGuest,
     price: property.price,
     regularPrice: property.regularPrice,
+    dateRange: [
+      property.user.bookedPeriod.start_date,
+      property.user.bookedPeriod.end_date,
+    ],
   })
 
   const handleAction = (value: number) => () => setAction(value)

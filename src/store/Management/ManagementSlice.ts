@@ -11,6 +11,9 @@ type PropertyManagementState = {
     maxGuest: number
     price: number
     regularPrice: number
+    user: {
+      bookedPeriod: BookedPeriod
+    }
   }
   error: string | null | undefined
   loading: boolean
@@ -24,6 +27,12 @@ const initialState: PropertyManagementState = {
     maxGuest: 0,
     price: 0,
     regularPrice: 0,
+    user: {
+      bookedPeriod: {
+        start_date: "",
+        end_date: "",
+      },
+    },
   },
 
   error: null,
@@ -76,6 +85,9 @@ const propertyManagementSlice = createSlice({
           maxGuest: payload.property.maxGuest,
           price: payload.property.price,
           regularPrice: payload.property.regularPrice,
+          user: {
+            bookedPeriod: payload.bookedPeriod,
+          },
         }
       })
       .addCase(fetchPropertyFromMyBookings.rejected, (state, action) => {

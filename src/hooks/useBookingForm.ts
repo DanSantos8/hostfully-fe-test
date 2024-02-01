@@ -11,10 +11,20 @@ type useBookingFormProps = {
   cleaningFee: number
   price: number
   regularPrice: number
+  dateRange?: string[] | null[]
 }
 
 const useBookingForm = (props: useBookingFormProps) => {
-  const { bookedPeriods, maxGuest, cleaningFee, price, regularPrice } = props
+  const {
+    bookedPeriods,
+    maxGuest,
+    cleaningFee,
+    price,
+    regularPrice,
+    // dateRange = ["", ""],
+  } = props
+
+  //const [startRange, endRange] = dateRange
 
   const [guests, setGuests] = useState(1)
   const [startDate, setStartDate] = useState<CalendarDate>(null)

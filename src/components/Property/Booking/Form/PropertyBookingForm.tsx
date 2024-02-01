@@ -29,8 +29,6 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     maxGuest,
   } = props
 
-  console.log("Nights booked:", nightsBooked)
-
   return (
     <S.Container>
       <S.Pricing>

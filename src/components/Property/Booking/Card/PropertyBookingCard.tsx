@@ -14,6 +14,7 @@ type PropertyBookingCardsProps = {
   guests: number
   nightsBooked: number
   price: number
+  images: string[]
 }
 
 const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
@@ -24,6 +25,7 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
     title = "",
     nightsBooked = 1,
     price = 0,
+    images,
   } = props
 
   const { start_date, end_date } = bookedPeriod
@@ -36,12 +38,7 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
   return (
     <S.Card>
       <S.Carousel>
-        <PropertyCarousel
-          images={[
-            "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
-            "https://www.bproperty.com/blog/wp-content/uploads/2021/04/house-1867187_1920.jpg",
-          ]}
-        />
+        <PropertyCarousel images={images} />
       </S.Carousel>
 
       <S.Details>
