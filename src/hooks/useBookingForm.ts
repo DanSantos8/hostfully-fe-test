@@ -1,33 +1,21 @@
-import { BookedPeriod } from "@/models/property.models"
 import moment from "moment"
 import { Moment } from "moment"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { FocusedInputShape } from "react-dates"
-import { useAppDispatch } from "./useStore"
-import { addBookedPeriod } from "@/store/Properties/PropertiesSlice"
+import { BookedPeriod } from "@/models/property.models"
 type CalendarDate = Moment | null
 
-type usePropertyBookingForm = {
-  id: string
-  startAvailability: string | null
-  endAvailability: string | null
+type useBookingFormProps = {
   bookedPeriods: BookedPeriod[]
-  maxGuests: number
+  maxGuest: number
+  cleaningFee: number
   price: number
   regularPrice: number
-  cleaningFee: number
 }
-const usePropertyBookingForm = (props: usePropertyBookingForm) => {
-  const {
-    id,
-    bookedPeriods,
-    endAvailability,
-    maxGuests,
-    startAvailability,
-    price,
-    regularPrice,
-    cleaningFee,
-  } = props
+
+const useBookingForm = (props: useBookingFormProps) => {
+  const { bookedPeriods, maxGuest, cleaningFee, price, regularPrice } = props
+
   const [guests, setGuests] = useState(1)
   const [startDate, setStartDate] = useState<CalendarDate>(null)
   const [endDate, setEndDate] = useState<CalendarDate>(null)
@@ -35,12 +23,10 @@ const usePropertyBookingForm = (props: usePropertyBookingForm) => {
     null
   )
 
-  const dispatch = useAppDispatch()
-
   const handleGuestsCount = (value: number) => () =>
     setGuests((prev) => {
       const newValue = prev + value
-      if (newValue > maxGuests || newValue < 1) {
+      if (newValue > maxGuest || newValue < 1) {
         return prev
       }
 
@@ -132,45 +118,13 @@ const usePropertyBookingForm = (props: usePropertyBookingForm) => {
     [hasPromoPrice, price, regularPrice]
   )
 
-  const bookedDays = endDate && startDate ? endDate.diff(startDate, "days") : 0
-  const totalBookedDaysWithNoCleaningFee = bookedDays * currentPrice
-  const totalCleaningFee = cleaningFee * bookedDays
+  const nightsBooked =
+    endDate && startDate ? endDate.diff(startDate, "days") : 0
+  const totalBookedDaysWithNoCleaningFee = nightsBooked * currentPrice
+  const totalCleaningFee = cleaningFee * nightsBooked
   const totalPriceWithNoTax =
     totalBookedDaysWithNoCleaningFee + totalCleaningFee
 
-  const initDates = useCallback(
-    (startAvailability: string | null, endAvailability: string | null) => {
-      if (startAvailability && endAvailability) {
-        setStartDate(moment(startAvailability))
-        setEndDate(moment(endAvailability))
-      }
-    },
-    []
-  )
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e?.preventDefault()
-    const format = (date: Moment) => moment(date).format("YYYY-MM-DD")
-    const bookedPeriod = {
-      start_date: format(startDate as Moment),
-      end_date: format(endDate as Moment),
-    }
-    const newPeriod = [...bookedPeriods, bookedPeriod]
-
-    dispatch(
-      addBookedPeriod({
-        propertyId: id,
-        newPeriod,
-        bookedPeriod,
-        guests,
-        nightsBooked: bookedDays,
-      })
-    )
-  }
-
-  useEffect(() => {
-    initDates(startAvailability, endAvailability)
-  }, [endAvailability, initDates, startAvailability])
   return {
     guests,
     startDate,
@@ -180,14 +134,13 @@ const usePropertyBookingForm = (props: usePropertyBookingForm) => {
     handleGuestsCount,
     onDatesChange,
     isDayBlocked,
-    bookedDays,
+    nightsBooked,
     totalBookedDaysWithNoCleaningFee,
     currentPrice,
     hasPromoPrice,
     totalCleaningFee,
     totalPriceWithNoTax,
-    handleSubmit,
   }
 }
 
-export default usePropertyBookingForm
+export default useBookingForm

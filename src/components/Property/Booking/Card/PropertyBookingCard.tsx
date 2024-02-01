@@ -5,7 +5,7 @@ import PropertyCarousel from "../../Carousel/PropertyCarousel"
 import moment from "moment"
 
 type PropertyBookingCardsProps = {
-  children: ReactNode
+  children?: ReactNode
   title: string
   bookedPeriod: {
     start_date: string

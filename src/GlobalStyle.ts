@@ -8,11 +8,11 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: inherit;
     text-decoration: none;
+    font-family: "Poppins", sans-serif;
   }
   
   body {
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
     font-weight: 500;
   }
 

@@ -2,35 +2,15 @@ import { DateRangePicker } from "react-dates"
 import * as S from "./PropertyBookingForm.styles"
 import "react-dates/initialize"
 import "react-dates/lib/css/_datepicker.css"
-import { BookedPeriod } from "@/models/property.models"
-import usePropertyBookingForm from "@/hooks/usePropertyBookingForm"
-import Loading from "@/components/Loading/Loading"
 
-type PropertyBookingFormProps = {
-  id: string
-  regularPrice: number
-  price: number
-  availability: string[]
-  maxGuests: number
-  bookedPeriods: BookedPeriod[]
-  cleaningFee: number
-  isLoading: boolean
-}
+import Loading from "@/components/Loading/Loading"
+import { PropertyBookingFormProps } from "@/models/property.models"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
-    id,
-    price = 0,
-    regularPrice = 0,
-    availability = [null, null],
-    maxGuests,
-    bookedPeriods,
-    cleaningFee,
-    isLoading,
-  } = props
-  const [startAvailability, endAvailability] = availability
-
-  const {
+    price,
+    regularPrice,
+    loading,
     endDate,
     focusedInput,
     guests,
@@ -39,23 +19,17 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     onDatesChange,
     setFocusedInput,
     startDate,
-    bookedDays,
+    nightsBooked,
     currentPrice,
     hasPromoPrice,
     totalBookedDaysWithNoCleaningFee,
     totalCleaningFee,
     totalPriceWithNoTax,
     handleSubmit,
-  } = usePropertyBookingForm({
-    id,
-    startAvailability,
-    endAvailability,
-    bookedPeriods,
-    maxGuests,
-    price,
-    regularPrice,
-    cleaningFee,
-  })
+    maxGuest,
+  } = props
+
+  console.log("Nights booked:", nightsBooked)
 
   return (
     <S.Container>
@@ -102,20 +76,20 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             <S.GuestControl
               type="button"
               onClick={handleGuestsCount(1)}
-              disabled={guests === maxGuests}
+              disabled={guests === maxGuest}
             >
               +
             </S.GuestControl>
           </S.GuestColumn>
         </S.Guests>
-        <S.Button disabled={isLoading} onClick={(e) => handleSubmit(e)}>
-          {isLoading ? <Loading /> : "Reservar"}
+        <S.Button disabled={loading} onClick={(e) => handleSubmit(e)}>
+          {loading ? <Loading /> : "Reservar"}
         </S.Button>
       </S.Form>
       <S.Summary>
         <S.SummaryRow>
           <S.Text>
-            R${currentPrice} x {bookedDays} noites
+            R${currentPrice} x {nightsBooked} noites
           </S.Text>
           <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
         </S.SummaryRow>

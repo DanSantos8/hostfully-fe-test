@@ -1,3 +1,7 @@
+import { Moment } from "moment"
+import { FocusedInputShape } from "react-dates"
+type CalendarDate = Moment | null
+
 type Host = {
   superhost: boolean
   name: string
@@ -29,4 +33,34 @@ export interface Property {
   bedrooms: number
   beds: number
   cleaningFee: number
+}
+
+export interface PropertyBookingFormProps {
+  maxGuest: number
+  guests: number
+  regularPrice: number
+  price: number
+  currentPrice: number
+  hasPromoPrice: boolean
+  totalBookedDaysWithNoCleaningFee: number
+  totalCleaningFee: number
+  totalPriceWithNoTax: number
+  nightsBooked: number
+  startDate: CalendarDate
+  endDate: CalendarDate
+  focusedInput: FocusedInputShape | null
+  isDayBlocked: (day: Moment) => boolean
+  onDatesChange: ({
+    startDate,
+    endDate,
+  }: {
+    startDate: CalendarDate
+    endDate: CalendarDate
+  }) => void
+  setFocusedInput: React.Dispatch<
+    React.SetStateAction<FocusedInputShape | null>
+  >
+  handleGuestsCount: (value: number) => () => void
+  handleSubmit: (e: React.FormEvent<Element>) => void
+  loading: boolean
 }
