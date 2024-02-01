@@ -1,18 +1,17 @@
 import { useAppSelector } from "@/hooks/useStore"
 import PropertyBookingCard from "../Card/PropertyBookingCard"
 import * as S from "./PropertyBookingList.styles"
-import Dialog from "@/components/Dialog/Dialog"
-import PropertyBookingManagement from "../Management/PropertyBookingManagement"
-import { useNavigate } from "react-router-dom"
+import PropertyBookingDialog from "../Dialog/PropertyBookingDialog"
 
 const PropertyBookingList = () => {
   const { myBookings } = useAppSelector((state) => state.user)
-  const navigate = useNavigate()
+
   return (
     <S.List>
       {myBookings.map((booking) => {
         const property = booking.property
         const props = {
+          id: booking.id,
           title: booking.property.title,
           bookedPeriod: booking.bookedPeriod,
           guests: booking.guests,
@@ -21,19 +20,9 @@ const PropertyBookingList = () => {
           images: property.images,
         }
 
-        const addQueryParam = () => {
-          const searchParams = new URLSearchParams(window.location.search)
-          searchParams.set("bookingId", booking.id.toString())
-          navigate({ search: `?${searchParams}` })
-        }
-
         return (
           <PropertyBookingCard {...props} key={booking.id}>
-            <Dialog label="Manage" onClick={addQueryParam}>
-              <PropertyBookingManagement>
-                <PropertyBookingCard {...props} />
-              </PropertyBookingManagement>
-            </Dialog>
+            <PropertyBookingDialog {...props} />
           </PropertyBookingCard>
         )
       })}

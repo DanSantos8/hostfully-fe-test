@@ -2,10 +2,12 @@ import { BookedPeriod } from "@/models/property.models"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RootState } from ".."
 import axios from "axios"
+import { fetchPropertyById } from "../Properties/PropertiesSlice"
 
 type PropertyManagementState = {
   property: {
     id: number
+    propertyId: number
     bookedPeriods: BookedPeriod[]
     cleaningFee: number
     maxGuest: number
@@ -21,7 +23,8 @@ type PropertyManagementState = {
 
 const initialState: PropertyManagementState = {
   property: {
-    id: 1,
+    id: 0,
+    propertyId: 0,
     bookedPeriods: [],
     cleaningFee: 0,
     maxGuest: 0,
@@ -41,7 +44,7 @@ const initialState: PropertyManagementState = {
 
 export const fetchPropertyFromMyBookings = createAsyncThunk(
   "propertyManagement/fetchPropertyFromMyBookings",
-  async (propertyId: number, { getState, rejectWithValue }) => {
+  async (propertyId: number, { getState, rejectWithValue, dispatch }) => {
     try {
       const { user } = getState() as RootState
 
@@ -54,6 +57,8 @@ export const fetchPropertyFromMyBookings = createAsyncThunk(
       if (!booking) {
         throw new Error("Booking not found")
       }
+
+      //const propertyResponse = await dispatch(fetchPropertyById(propertyId.toString()));
 
       return booking
     } catch (error) {
@@ -80,6 +85,7 @@ const propertyManagementSlice = createSlice({
         state.property = {
           ...state.property,
           id: payload.id,
+          propertyId: Number(payload.property.id),
           bookedPeriods: payload.property.booked_periods,
           cleaningFee: payload.property.cleaningFee,
           maxGuest: payload.property.maxGuest,

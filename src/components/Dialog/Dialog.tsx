@@ -1,25 +1,20 @@
 import Modal from "@/components/Modal/Modal"
 import * as S from "./Dialog.styles"
-import { ReactNode, useCallback, useState } from "react"
+import { ReactNode } from "react"
 
 type PropertyBookingCardActionsProps = {
   children: ReactNode
   label: string
-  onClick: () => void
+  handleIsOpen: () => void
+  isOpen: boolean
 }
 
 const Dialog: React.FC<PropertyBookingCardActionsProps> = ({
   children,
   label = "",
-  onClick,
+  handleIsOpen,
+  isOpen,
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleIsOpen = useCallback(() => {
-    setIsOpen((prev) => !prev)
-    onClick()
-  }, [onClick])
-
   return (
     <>
       <S.Buttons>

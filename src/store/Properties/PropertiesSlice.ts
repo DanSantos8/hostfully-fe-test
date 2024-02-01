@@ -57,12 +57,25 @@ export const addBookedPeriod = createAsyncThunk(
     return {
       property: { ...response.data },
       booking: {
-        createdAt: new Date(),
+        id: new Date().getMilliseconds(),
         period: bookedPeriod,
         nightsBooked,
         guests,
       },
     }
+  }
+)
+
+export const updatePropertyBookedPeriod = createAsyncThunk(
+  "properties/updateBookedPeriod",
+  async (props: { propertyId: number; newBookedPeriods: BookedPeriod[] }) => {
+    const { newBookedPeriods, propertyId } = props
+
+    const response = await client.patch(`properties/${propertyId}`, {
+      booked_periods: newBookedPeriods,
+    })
+
+    return response
   }
 )
 
@@ -139,6 +152,16 @@ const propertiesSlice = createSlice({
         state.propertyDetail = action.payload.property
       })
       .addCase(addBookedPeriod.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message
+      })
+      .addCase(updatePropertyBookedPeriod.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(updatePropertyBookedPeriod.fulfilled, (state) => {
+        state.loading = false
+      })
+      .addCase(updatePropertyBookedPeriod.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message
       })

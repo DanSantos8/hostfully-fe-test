@@ -5,10 +5,13 @@ import PropertyBookingForm from "../Form/PropertyBookingForm"
 
 type PropertyBookingManagement = {
   children: ReactNode
+  onClose: () => void
 }
 const PropertyBookingManagement = (props: PropertyBookingManagement) => {
-  const { children } = props
-  const { handleAction, action, ...rest } = usePropertyBookingManagement()
+  const { children, onClose } = props
+  const { handleAction, action, ...rest } = usePropertyBookingManagement({
+    onClose,
+  })
 
   const actions = {
     0: (
