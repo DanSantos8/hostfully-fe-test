@@ -4,6 +4,7 @@ import styled from "styled-components"
 export const Container = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   position: relative;
   z-index: 20;
   overflow: visible;
@@ -12,9 +13,12 @@ export const Container = styled.div`
 export const ContentWrapper = styled.div`
   position: relative;
   width: 100%;
-  padding-top: 50%;
+  padding-top: 70%;
   overflow: hidden;
-  border-radius: ${rounded("medium")};
+
+  img {
+    border-radius: ${rounded("medium")};
+  }
 `
 
 export const Content = styled.div`

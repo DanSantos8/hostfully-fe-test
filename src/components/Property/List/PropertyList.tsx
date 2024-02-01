@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 import * as S from "./PropertyList.styles"
 
 type PropertyListProps = {

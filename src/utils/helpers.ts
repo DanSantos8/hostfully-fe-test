@@ -26,3 +26,9 @@ export const weight =
     theme.weight[key]
 
 export const toRem = (pixels: number): string => `${pixels / 16}rem`
+
+export const currency = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+  maximumFractionDigits: 0,
+})

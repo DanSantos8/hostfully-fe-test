@@ -1,4 +1,4 @@
-import { space } from "@/utils/helpers"
+import { space, toRem } from "@/utils/helpers"
 import styled from "styled-components"
 
 export const Layout = styled.div`
@@ -15,5 +15,5 @@ export const Main = styled.main`
   max-width: 1440px;
   margin: 0 auto;
   flex-direction: column;
-  padding: ${space("xlarge")};
+  padding: ${toRem(120)} ${space("xlarge")} ${toRem(40)};
 `
