@@ -80,8 +80,22 @@ const userSlice = createSlice({
       .addCase(addUserBookedPeriod, (state, action) => {
         const payload = action.payload
 
+        const updatedAllMyBookingsPeriod = state.myBookings.map((myBooking) => {
+          if (myBooking.property.id === payload.property.id) {
+            return {
+              ...myBooking,
+              property: {
+                ...myBooking.property,
+                booked_periods: payload.property.booked_periods,
+              },
+            }
+          }
+
+          return myBooking
+        })
+
         state.myBookings = [
-          ...state.myBookings,
+          ...updatedAllMyBookingsPeriod,
           {
             id: payload.booking.id,
             bookedPeriod: payload.booking.period,
@@ -100,6 +114,7 @@ const userSlice = createSlice({
         const { bookedPeriod, guests, bookingId, nightsBooked } =
           action.payload.myBooking
 
+        //UPDATING MY CURRENT BOOKING
         const updatedMyBookings = state.myBookings.map((myBooking) => {
           if (myBooking.id === action.payload.myBooking.bookingId) {
             return {
@@ -108,6 +123,19 @@ const userSlice = createSlice({
               guests,
               id: bookingId,
               nightsBooked,
+              property: {
+                ...myBooking.property,
+                booked_periods: action.payload.property.newBookedPeriods,
+              },
+            }
+          }
+
+          //UPDATING THE BOOKED_PERIODS FOR THE OTHERS BOOKINGS THATS EQUALS TO MY CURRENT
+          if (
+            Number(myBooking.property.id) === action.payload.property.propertyId
+          ) {
+            return {
+              ...myBooking,
               property: {
                 ...myBooking.property,
                 booked_periods: action.payload.property.newBookedPeriods,

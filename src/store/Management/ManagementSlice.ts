@@ -2,7 +2,6 @@ import { BookedPeriod } from "@/models/property.models"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RootState } from ".."
 import axios from "axios"
-import { fetchPropertyById } from "../Properties/PropertiesSlice"
 
 type PropertyManagementState = {
   property: {
@@ -44,7 +43,7 @@ const initialState: PropertyManagementState = {
 
 export const fetchPropertyFromMyBookings = createAsyncThunk(
   "propertyManagement/fetchPropertyFromMyBookings",
-  async (propertyId: number, { getState, rejectWithValue, dispatch }) => {
+  async (propertyId: number, { getState, rejectWithValue }) => {
     try {
       const { user } = getState() as RootState
 
@@ -57,8 +56,6 @@ export const fetchPropertyFromMyBookings = createAsyncThunk(
       if (!booking) {
         throw new Error("Booking not found")
       }
-
-      //const propertyResponse = await dispatch(fetchPropertyById(propertyId.toString()));
 
       return booking
     } catch (error) {

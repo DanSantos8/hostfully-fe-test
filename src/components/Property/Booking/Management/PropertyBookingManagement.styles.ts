@@ -35,6 +35,20 @@ export const UpdateButton = styled(Button)`
 
 export const GoBack = styled(Button)`
   background-color: transparent;
-  margin: auto;
+  margin-left: auto;
   padding: 0;
+  text-decoration: underline;
+`
+
+export const Cancel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${space("medium")};
+  width: 100%;
+`
+
+export const Title = styled.span`
+  font-size: ${fontSize("medium")};
+  text-align: center;
+  text-decoration: underline;
 `

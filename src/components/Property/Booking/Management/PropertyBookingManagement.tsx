@@ -23,14 +23,24 @@ const PropertyBookingManagement = (props: PropertyBookingManagement) => {
       </S.Buttons>
     ),
     1: <PropertyBookingForm {...rest} loading={false} />,
-    2: <div>Cancel</div>,
+    2: (
+      <S.Cancel>
+        <S.Title>Are you sure?</S.Title>
+        <S.UpdateButton>Yes, I want to cancel it.</S.UpdateButton>
+        <S.Button onClick={handleAction(0)}>Go back</S.Button>
+      </S.Cancel>
+    ),
   }
 
   return (
     <S.Container>
       {children}
 
-      {action !== 0 && <S.GoBack onClick={handleAction(0)}>Go back</S.GoBack>}
+      {action === 1 && (
+        <S.GoBack onClick={handleAction(0)}>
+          I don't want to update it.
+        </S.GoBack>
+      )}
 
       {actions[action as keyof typeof actions]}
     </S.Container>
