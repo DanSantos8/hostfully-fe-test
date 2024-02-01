@@ -58,6 +58,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             customArrowIcon={<></>}
             displayFormat="MMM, DD - YYYY"
             isDayBlocked={isDayBlocked}
+            //isOutsideRange={isOutsideRange}
           />
         </S.Calendar>
         <S.Guests>

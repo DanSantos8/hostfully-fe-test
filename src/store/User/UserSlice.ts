@@ -1,8 +1,10 @@
 import { BookedPeriod, Property } from "@/models/property.models"
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import { addUserBookedPeriod } from "../Properties/PropertiesSlice"
-import axios from "axios"
-import { deletePropertyBooking } from "../Management/ManagementSlice"
+import {
+  deletePropertyBooking,
+  updatePropertyBooking,
+} from "../Management/ManagementSlice"
 
 type UserState = {
   id: number
@@ -17,53 +19,6 @@ type UserState = {
   error: string | null | undefined
   loading: boolean
 }
-
-export type updateUserPropertyBookingProps = {
-  bookingId: number
-  propertyId: number
-  bookedPeriod: BookedPeriod
-  newBookedPeriods: BookedPeriod[]
-  nightsBooked: number
-  guests: number
-}
-
-export const updateUserPropertyBooking = createAsyncThunk(
-  "user/updateUserPropertyBooking",
-  async (property: updateUserPropertyBookingProps, { rejectWithValue }) => {
-    const {
-      bookingId,
-      propertyId,
-      bookedPeriod,
-      guests,
-      newBookedPeriods,
-      nightsBooked,
-    } = property
-    try {
-      //here we should call an endpoint to mutate user booking
-      //...
-
-      const response = {
-        myBooking: {
-          bookingId,
-          bookedPeriod,
-          guests,
-          nightsBooked,
-        },
-        property: {
-          propertyId,
-          newBookedPeriods,
-        },
-      }
-      return response
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        return rejectWithValue(error.response.data)
-      }
-
-      return rejectWithValue("An unknown error occurred")
-    }
-  }
-)
 
 const initialState: UserState = {
   id: 1,
@@ -107,10 +62,7 @@ const userSlice = createSlice({
           },
         ]
       })
-      .addCase(updateUserPropertyBooking.pending, (state) => {
-        state.loading = true
-      })
-      .addCase(updateUserPropertyBooking.fulfilled, (state, action) => {
+      .addCase(updatePropertyBooking, (state, action) => {
         state.loading = false
 
         const { bookedPeriod, guests, bookingId, nightsBooked } =
@@ -149,10 +101,6 @@ const userSlice = createSlice({
         })
         state.myBookings = updatedMyBookings
       })
-      .addCase(updateUserPropertyBooking.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-      })
       .addCase(deletePropertyBooking, (state, action) => {
         const payload = action.payload
 
@@ -180,7 +128,5 @@ const userSlice = createSlice({
       })
   },
 })
-
-export const updatePropertyBooking = updateUserPropertyBooking.fulfilled
 
 export default userSlice.reducer

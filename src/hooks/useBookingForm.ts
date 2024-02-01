@@ -43,13 +43,17 @@ const useBookingForm = (props: useBookingFormProps) => {
       return newValue
     })
 
-  const findLastAvailableDate = (startDate: Moment): Moment => {
+  const findLastAvailableDate = (startDate: Moment): Moment | null => {
     const nextAvailableDate = startDate.clone()
 
     while (
       !doesOverlap(nextAvailableDate, nextAvailableDate.clone().add(1, "days"))
     ) {
       nextAvailableDate.add(1, "days")
+    }
+
+    if (nextAvailableDate.isSame(startDate)) {
+      return null
     }
 
     return nextAvailableDate
@@ -96,6 +100,7 @@ const useBookingForm = (props: useBookingFormProps) => {
           ? endDate
           : findLastAvailableDate(startDate as Moment)
 
+      console.log(adjustedEndDate)
       setStartDate(startDate)
       setEndDate(adjustedEndDate)
 
@@ -108,6 +113,13 @@ const useBookingForm = (props: useBookingFormProps) => {
       return
     }
     setEndDate(endDate)
+  }
+
+  const isOutsideRange = (day: Moment) => {
+    if (startDate) {
+      return day.diff(startDate, "days") < 2
+    }
+    return false
   }
 
   const isDayBlocked = (day: Moment) => {
@@ -150,6 +162,7 @@ const useBookingForm = (props: useBookingFormProps) => {
     hasPromoPrice,
     totalCleaningFee,
     totalPriceWithNoTax,
+    isOutsideRange,
   }
 }
 

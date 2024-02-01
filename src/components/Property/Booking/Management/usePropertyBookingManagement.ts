@@ -4,15 +4,14 @@ import { PropertyBookingFormProps } from "@/models/property.models"
 import {
   deleteUserPropertyBooking,
   fetchPropertyFromMyBookings,
+  updateUserPropertyBooking,
+  updateUserPropertyBookingProps,
 } from "@/store/Management/ManagementSlice"
 import {
   deletePropertyBookedPeriod,
   updatePropertyBookedPeriod,
 } from "@/store/Properties/PropertiesSlice"
-import {
-  updateUserPropertyBooking,
-  updateUserPropertyBookingProps,
-} from "@/store/User/UserSlice"
+
 import moment from "moment"
 import { useCallback, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"

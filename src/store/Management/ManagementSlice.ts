@@ -69,6 +69,53 @@ export const fetchPropertyFromMyBookings = createAsyncThunk(
   }
 )
 
+export type updateUserPropertyBookingProps = {
+  bookingId: number
+  propertyId: number
+  bookedPeriod: BookedPeriod
+  newBookedPeriods: BookedPeriod[]
+  nightsBooked: number
+  guests: number
+}
+
+export const updateUserPropertyBooking = createAsyncThunk(
+  "propertyManagement/updateUserPropertyBooking",
+  async (property: updateUserPropertyBookingProps, { rejectWithValue }) => {
+    const {
+      bookingId,
+      propertyId,
+      bookedPeriod,
+      guests,
+      newBookedPeriods,
+      nightsBooked,
+    } = property
+    try {
+      //here we should call an endpoint to mutate user booking
+      //...
+
+      const response = {
+        myBooking: {
+          bookingId,
+          bookedPeriod,
+          guests,
+          nightsBooked,
+        },
+        property: {
+          propertyId,
+          newBookedPeriods,
+        },
+      }
+      return response
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data)
+      }
+
+      return rejectWithValue("An unknown error occurred")
+    }
+  }
+)
+
 type deleteUserPropertyBookingProps = {
   bookingId: number
   propertyId: number
@@ -149,5 +196,6 @@ const propertyManagementSlice = createSlice({
 })
 
 export const deletePropertyBooking = deleteUserPropertyBooking.fulfilled
+export const updatePropertyBooking = updateUserPropertyBooking.fulfilled
 
 export default propertyManagementSlice.reducer
