@@ -16,7 +16,7 @@ interface UserState {
   name: string
   myBookings: Booking[]
   error: string | null | undefined
-  loading: boolean
+  //status: Status
 }
 
 const initialState: UserState = {
@@ -24,7 +24,7 @@ const initialState: UserState = {
   name: "Daniel",
   myBookings: [],
   error: null,
-  loading: false,
+  //status: StatusEnum.IDLE,
 }
 
 const updateBookedPeriodsInBookings = (

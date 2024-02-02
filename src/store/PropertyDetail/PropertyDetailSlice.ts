@@ -79,7 +79,7 @@ const propertiesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPropertyById.pending, (state) => {
-        setLoading(state, ["detail"])
+        setLoading(state, ["detail", "bookingForm"])
       })
       .addCase(fetchPropertyById.fulfilled, (state, action) => {
         state.status.detail = StatusEnum.FULFILLED

@@ -7,6 +7,7 @@ import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
 import Feedback from "@/components/Feedback/Feedback"
 import { StatusEnum } from "@/constants/status"
+import StateHandler from "@/components/StateHandler/StateHandler"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
@@ -31,6 +32,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     maxGuest,
   } = props
 
+  //! make UI structure better to give loading feedback
   const renderForm = () => {
     if (status === StatusEnum.FULFILLED) {
       return (
@@ -115,30 +117,32 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
 
   return (
     <S.Container>
-      <S.Pricing>
-        <S.RegularPrice hasPromoPrice={hasPromoPrice}>
-          R${regularPrice}
-        </S.RegularPrice>
-        {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
-        <S.Text>p/noite</S.Text>
-      </S.Pricing>
-      <S.Form>{renderForm()}</S.Form>
-      <S.Summary>
-        <S.SummaryRow>
-          <S.Text>
-            R${currentPrice} x {nightsBooked} noites
-          </S.Text>
-          <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
-        </S.SummaryRow>
-        <S.SummaryRow>
-          <S.Text>Taxa de serviço do Airbnb</S.Text>
-          <S.Text>R${totalCleaningFee}</S.Text>
-        </S.SummaryRow>
-        <S.SummaryRow>
-          <S.Text>Total (sem impostos)</S.Text>
-          <S.Text>R${totalPriceWithNoTax}</S.Text>
-        </S.SummaryRow>
-      </S.Summary>
+      <StateHandler loading={status === StatusEnum.LOADING}>
+        <S.Pricing>
+          <S.RegularPrice hasPromoPrice={hasPromoPrice}>
+            R${regularPrice}
+          </S.RegularPrice>
+          {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
+          <S.Text>p/noite</S.Text>
+        </S.Pricing>
+        <S.Form>{renderForm()}</S.Form>
+        <S.Summary>
+          <S.SummaryRow>
+            <S.Text>
+              R${currentPrice} x {nightsBooked} noites
+            </S.Text>
+            <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
+          </S.SummaryRow>
+          <S.SummaryRow>
+            <S.Text>Taxa de serviço do Airbnb</S.Text>
+            <S.Text>R${totalCleaningFee}</S.Text>
+          </S.SummaryRow>
+          <S.SummaryRow>
+            <S.Text>Total (sem impostos)</S.Text>
+            <S.Text>R${totalPriceWithNoTax}</S.Text>
+          </S.SummaryRow>
+        </S.Summary>
+      </StateHandler>
     </S.Container>
   )
 }

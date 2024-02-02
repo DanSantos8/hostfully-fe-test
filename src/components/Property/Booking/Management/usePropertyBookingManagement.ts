@@ -15,6 +15,7 @@ import {
 import moment from "moment"
 import { useCallback, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 interface usePropertyBookingManagement extends PropertyBookingFormProps {
   handleAction: (value: number) => () => void
@@ -28,7 +29,9 @@ const usePropertyBookingManagement = ({
   onClose: () => void
 }): usePropertyBookingManagement => {
   const dispatch = useAppDispatch()
-  const { property } = useAppSelector((state) => state.propertyManagement)
+  const { property, status } = useAppSelector(
+    (state) => state.propertyManagement
+  )
   const [action, setAction] = useState(0)
   const navigate = useNavigate()
   const location = useLocation()
@@ -98,7 +101,9 @@ const usePropertyBookingManagement = ({
         )
         removeBookingId()
         onClose()
+        toast.success("Booking updated!")
       })
+      .catch(() => toast.success("Error trying to update your booking :("))
   }
 
   const handleDeleteBooking = () => {
@@ -119,7 +124,9 @@ const usePropertyBookingManagement = ({
         )
         removeBookingId()
         onClose()
+        toast.success("Booking canceled!")
       })
+      .catch(() => toast.error("Error trying to cancel booking :("))
   }
 
   useEffect(() => {
@@ -133,7 +140,7 @@ const usePropertyBookingManagement = ({
     regularPrice: property.regularPrice,
     handleSubmit,
     maxGuest: property.maxGuest,
-    loading: false,
+    status,
     handleDeleteBooking,
     ...bookingFormValues,
   }

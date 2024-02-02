@@ -5,6 +5,7 @@ import styled, { css } from "styled-components"
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 300px;
   width: 100%;
   padding: ${space("large")};
   gap: ${space("small")};
@@ -152,8 +153,4 @@ export const FeedbackButtons = styled.div`
 export const Navigate = styled(Link)`
   transition: font-size 0.1s ease;
   color: #f0f0f0;
-
-  &:hover {
-    font-size: ${fontSize("large")};
-  }
 `

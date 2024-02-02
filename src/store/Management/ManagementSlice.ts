@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RootState } from ".."
 import axios from "axios"
 import client from "@/api/api"
+import { Status, StatusEnum } from "@/constants/status"
 
 type PropertyManagementState = {
   property: {
@@ -18,7 +19,7 @@ type PropertyManagementState = {
     }
   }
   error: string | null | undefined
-  loading: boolean
+  status: Status
 }
 
 const initialState: PropertyManagementState = {
@@ -37,9 +38,8 @@ const initialState: PropertyManagementState = {
       },
     },
   },
-
   error: null,
-  loading: false,
+  status: "IDLE",
 }
 
 export const fetchPropertyFromMyBookings = createAsyncThunk(
@@ -162,10 +162,10 @@ const propertyManagementSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPropertyFromMyBookings.pending, (state) => {
-        state.loading = true
+        state.status = StatusEnum.LOADING
       })
       .addCase(fetchPropertyFromMyBookings.fulfilled, (state, { payload }) => {
-        state.loading = false
+        state.status = StatusEnum.IDLE
         state.property = {
           ...state.property,
           id: payload.id,
@@ -181,15 +181,17 @@ const propertyManagementSlice = createSlice({
         }
       })
       .addCase(fetchPropertyFromMyBookings.rejected, (state, action) => {
-        state.loading = false
+        state.status = StatusEnum.REJECTED
         state.error = action.error.message
       })
       .addCase(deleteUserPropertyBooking.pending, (state) => {
-        state.loading = true
+        state.status = StatusEnum.LOADING
       })
-      .addCase(deleteUserPropertyBooking.fulfilled, () => {})
+      .addCase(deleteUserPropertyBooking.fulfilled, (state) => {
+        state.status = StatusEnum.FULFILLED
+      })
       .addCase(deleteUserPropertyBooking.rejected, (state, action) => {
-        state.loading = false
+        state.status = StatusEnum.REJECTED
         state.error = action.error.message
       })
   },
