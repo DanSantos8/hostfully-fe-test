@@ -1,7 +1,7 @@
 import useBookingForm from "@/hooks/useBookingForm"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
-import { addBookedPeriod } from "@/store/Properties/PropertiesSlice"
+import { addBookedPeriod } from "@/store/Properties/PropertiesThunks"
 import moment from "moment"
 import { Moment } from "moment"
 

@@ -2,12 +2,11 @@ import Property from "@/components/Property"
 import * as S from "./Home.styles"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { useEffect } from "react"
-import { fetchProperties } from "@/store/Properties/PropertiesSlice"
 import PropertyCard from "@/components/Property/List/Card/PropertyCard"
+import { fetchProperties } from "@/store/Properties/PropertiesThunks"
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  //REFACTOR
   const { propertiesList } = useAppSelector((state) => state.properties)
 
   useEffect(() => {

@@ -1,16 +1,11 @@
-import client from "@/api/api"
+import { Property } from "@/models/property.models"
+import { createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit"
 import {
-  fetchPropertiesApi,
-  fetchPropertyByIdApi,
-  updatePropertyApi,
-} from "@/api/propertiesApi"
-import { BookedPeriod, Property } from "@/models/property.models"
-import {
-  createSlice,
-  createAsyncThunk,
-  PayloadAction,
-  SerializedError,
-} from "@reduxjs/toolkit"
+  addBookedPeriod,
+  fetchProperties,
+  fetchPropertyById,
+  updatePropertyBookedPeriod,
+} from "./PropertiesThunks"
 
 type PropertiesState = {
   propertiesList: Property[]
@@ -18,67 +13,6 @@ type PropertiesState = {
   loading: boolean
   error: string | null | undefined
 }
-
-export const fetchProperties = createAsyncThunk(
-  "properties/fetchProperties",
-  fetchPropertiesApi
-)
-
-export const fetchPropertyById = createAsyncThunk(
-  "properties/fetchPropertyById",
-  fetchPropertyByIdApi
-)
-
-export const addBookedPeriod = createAsyncThunk(
-  "properties/addBookedPeriod",
-  async (props: {
-    propertyId: string
-    bookedPeriod: BookedPeriod
-    newPeriod: BookedPeriod[]
-    nightsBooked: number
-    guests: number
-  }) => {
-    const { newPeriod, propertyId, bookedPeriod, guests, nightsBooked } = props
-
-    const response = await client.patch(`properties/${propertyId}`, {
-      booked_periods: newPeriod,
-    })
-
-    return {
-      property: { ...response.data },
-      booking: {
-        id: new Date().getMilliseconds(),
-        period: bookedPeriod,
-        nightsBooked,
-        guests,
-      },
-    }
-  }
-)
-
-export const updatePropertyBookedPeriod = createAsyncThunk(
-  "properties/updateProperty",
-  async (props: {
-    propertyId: number
-    updatedBookedPeriods: BookedPeriod[]
-  }) => {
-    const { propertyId, updatedBookedPeriods } = props
-    return updatePropertyApi(propertyId, updatedBookedPeriods)
-  }
-)
-
-export const deletePropertyBookedPeriod = createAsyncThunk(
-  "properties/deletePropertyBookedPeriod",
-  async (props: { propertyId: number; newBookedPeriods: BookedPeriod[] }) => {
-    const { newBookedPeriods, propertyId } = props
-
-    const response = await client.patch(`properties/${propertyId}`, {
-      booked_periods: newBookedPeriods,
-    })
-
-    return response
-  }
-)
 
 const initialState: PropertiesState = {
   propertiesList: [],

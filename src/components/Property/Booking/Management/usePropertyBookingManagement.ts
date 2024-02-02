@@ -10,7 +10,7 @@ import {
 import {
   deletePropertyBookedPeriod,
   updatePropertyBookedPeriod,
-} from "@/store/Properties/PropertiesSlice"
+} from "@/store/Properties/PropertiesThunks"
 
 import moment from "moment"
 import { useCallback, useEffect, useState } from "react"
@@ -113,7 +113,7 @@ const usePropertyBookingManagement = ({
       .then((data) => {
         dispatch(
           deletePropertyBookedPeriod({
-            newBookedPeriods: data.property.bookedPeriods,
+            updatedBookedPeriods: data.property.bookedPeriods,
             propertyId: data.property.propertyId,
           })
         )

@@ -2,6 +2,14 @@ import { Moment } from "moment"
 import { FocusedInputShape } from "react-dates"
 type CalendarDate = Moment | null
 
+export interface Booking {
+  id: number
+  bookedPeriod: BookedPeriod
+  nightsBooked: number
+  guests: number
+  property: Property
+}
+
 type Host = {
   superhost: boolean
   name: string
