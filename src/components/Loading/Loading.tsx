@@ -5,7 +5,7 @@ import { BeatLoader } from "react-spinners"
 const Loading = (props: { color?: "white" | "blue"; size?: number }) => {
   const { color = "white", size = 15 } = props
   return (
-    <S.Spinner>
+    <S.Spinner data-testid="loading">
       <BeatLoader color={color} size={size} />
     </S.Spinner>
   )

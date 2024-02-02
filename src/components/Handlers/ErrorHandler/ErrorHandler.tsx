@@ -9,7 +9,7 @@ interface ErrorHandler {
 const ErrorHandler = (props: ErrorHandler) => {
   const { message } = props
   return (
-    <Container>
+    <Container data-testid="error-handler">
       <MdErrorOutline size={50} />
       <Message>{message}</Message>
       <GoBack to={ROUTES.HOME}>Go back home</GoBack>

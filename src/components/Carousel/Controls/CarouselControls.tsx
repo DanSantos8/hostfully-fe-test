@@ -19,9 +19,17 @@ const CarouselControls = (props: CarouselControlsProps) => {
   }
 
   return (
-    <S.Container>
-      <S.PrevButton onClick={handlePrevClick} />
-      <S.NextButton onClick={handleNextClick} />
+    <S.Container data-testid="carousel-controls">
+      <S.PrevButton
+        onClick={handlePrevClick}
+        data-testid="prev-button"
+        aria-label="Prev"
+      />
+      <S.NextButton
+        onClick={handleNextClick}
+        data-testid="next-button"
+        aria-label="Next"
+      />
     </S.Container>
   )
 }

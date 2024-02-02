@@ -32,7 +32,6 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     maxGuest,
   } = props
 
-  //! make UI structure better to give loading feedback
   const renderForm = () => {
     if (status === StatusEnum.FULFILLED) {
       return (
@@ -110,7 +109,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
           disabled={status === StatusEnum.LOADING}
           onClick={(e) => handleSubmit(e)}
         >
-          {status === StatusEnum.LOADING ? <Loading /> : "Reservar"}
+          {status === StatusEnum.LOADING ? <Loading /> : "Book!"}
         </S.Button>
       </>
     )
@@ -121,26 +120,26 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
       <StateHandler loading={status === StatusEnum.LOADING}>
         <S.Pricing>
           <S.RegularPrice hasPromoPrice={hasPromoPrice}>
-            R${regularPrice}
+            US${regularPrice}
           </S.RegularPrice>
-          {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
-          <S.Text>p/noite</S.Text>
+          {hasPromoPrice && <S.RegularPrice>US${price}</S.RegularPrice>}
+          <S.Text>p/night</S.Text>
         </S.Pricing>
         <S.Form>{renderForm()}</S.Form>
         <S.Summary>
           <S.SummaryRow>
             <S.Text>
-              R${currentPrice} x {nightsBooked} nights
+              US${currentPrice} x {nightsBooked} nights
             </S.Text>
-            <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
+            <S.Text>US${totalBookedDaysWithNoCleaningFee}</S.Text>
           </S.SummaryRow>
           <S.SummaryRow>
             <S.Text>Cleaning Fee</S.Text>
-            <S.Text>R${totalCleaningFee}</S.Text>
+            <S.Text>US${totalCleaningFee}</S.Text>
           </S.SummaryRow>
           <S.SummaryRow>
             <S.Text>Total (no taxes)</S.Text>
-            <S.Text>R${totalPriceWithNoTax}</S.Text>
+            <S.Text>US${totalPriceWithNoTax}</S.Text>
           </S.SummaryRow>
         </S.Summary>
       </StateHandler>

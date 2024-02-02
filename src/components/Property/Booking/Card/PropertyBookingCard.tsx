@@ -51,7 +51,7 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
           {formatDate(start_date)} - {formatDate(end_date)}
         </S.Text>
         <S.Text>
-          R${price} x {nightsBooked} nights, {guests} guests
+          US${price} x {nightsBooked} nights, {guests} guests
         </S.Text>
         {children}
       </S.Details>
