@@ -1,23 +1,22 @@
-import { BookedPeriod, Property } from "@/models/property.models"
-import { createSlice } from "@reduxjs/toolkit"
-import { addUserBookedPeriod } from "../Properties/PropertiesSlice"
+import { BookedPeriod, Booking } from "@/models/property.models"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import {
   deletePropertyBooking,
   updatePropertyBooking,
 } from "../Management/ManagementSlice"
+import {
+  DeletePropertyBookingModel,
+  MyBooking,
+  UpdatePropertyBookingModel,
+} from "@/models/user.models"
+import { addUserBookedPeriod } from "../PropertyDetail/PropertyDetailSlice"
 
-type UserState = {
+interface UserState {
   id: number
   name: string
-  myBookings: {
-    id: number
-    bookedPeriod: BookedPeriod
-    nightsBooked: number
-    guests: number
-    property: Property
-  }[]
+  myBookings: Booking[]
   error: string | null | undefined
-  loading: boolean
+  //status: Status
 }
 
 const initialState: UserState = {
@@ -25,7 +24,26 @@ const initialState: UserState = {
   name: "Daniel",
   myBookings: [],
   error: null,
-  loading: false,
+  //status: StatusEnum.IDLE,
+}
+
+const updateBookedPeriodsInBookings = (
+  bookings: Booking[],
+  propertyId: number,
+  newBookedPeriods: BookedPeriod[]
+): Booking[] => {
+  return bookings.map((booking) => {
+    if (booking.property.id === propertyId) {
+      return {
+        ...booking,
+        property: {
+          ...booking.property,
+          booked_periods: newBookedPeriods,
+        },
+      }
+    }
+    return booking
+  })
 }
 
 const userSlice = createSlice({
@@ -34,98 +52,64 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addUserBookedPeriod, (state, action) => {
-        const payload = action.payload
-
-        const updatedAllMyBookingsPeriod = state.myBookings.map((myBooking) => {
-          if (myBooking.property.id === payload.property.id) {
-            return {
-              ...myBooking,
-              property: {
-                ...myBooking.property,
-                booked_periods: payload.property.booked_periods,
-              },
-            }
-          }
-
-          return myBooking
-        })
-
-        state.myBookings = [
-          ...updatedAllMyBookingsPeriod,
-          {
-            id: payload.booking.id,
-            bookedPeriod: payload.booking.period,
-            nightsBooked: payload.booking.nightsBooked,
-            guests: payload.booking.guests,
-            property: payload.property,
-          },
-        ]
-      })
-      .addCase(updatePropertyBooking, (state, action) => {
-        state.loading = false
-
-        const { bookedPeriod, guests, bookingId, nightsBooked } =
-          action.payload.myBooking
-
-        //UPDATING MY CURRENT BOOKING
-        const updatedMyBookings = state.myBookings.map((myBooking) => {
-          if (myBooking.id === action.payload.myBooking.bookingId) {
-            return {
-              ...myBooking,
-              bookedPeriod,
-              guests,
-              id: bookingId,
-              nightsBooked,
-              property: {
-                ...myBooking.property,
-                booked_periods: action.payload.property.newBookedPeriods,
-              },
-            }
-          }
-
-          //UPDATING THE BOOKED_PERIODS FOR THE OTHERS BOOKINGS THATS EQUALS TO MY CURRENT
-          const isMyPropertyBooked =
-            Number(myBooking.property.id) === action.payload.property.propertyId
-          if (isMyPropertyBooked) {
-            return {
-              ...myBooking,
-              property: {
-                ...myBooking.property,
-                booked_periods: action.payload.property.newBookedPeriods,
-              },
-            }
-          }
-
-          return myBooking
-        })
-        state.myBookings = updatedMyBookings
-      })
-      .addCase(deletePropertyBooking, (state, action) => {
-        const payload = action.payload
-
-        const filteredMyBookings = state.myBookings.filter(
-          (myBooking) => myBooking.id !== payload.user.bookingId
-        )
-
-        const updatedMyBookings = filteredMyBookings.map((myBooking) => {
-          if (Number(myBooking.property.id) === payload.user.propertyId) {
-            return {
-              ...myBooking,
-              property: {
-                ...myBooking.property,
-                booked_periods: payload.property.bookedPeriods,
-              },
-            }
-          }
-          return myBooking
-        })
-
-        return {
-          ...state,
-          myBookings: updatedMyBookings,
+      .addCase(
+        addUserBookedPeriod,
+        (state, action: PayloadAction<MyBooking>) => {
+          const payload = action.payload
+          state.myBookings = [
+            ...updateBookedPeriodsInBookings(
+              state.myBookings,
+              payload.property.id as number,
+              payload.property.booked_periods
+            ),
+            {
+              id: payload.booking.id,
+              bookedPeriod: payload.booking.period,
+              nightsBooked: payload.booking.nightsBooked,
+              guests: payload.booking.guests,
+              property: payload.property,
+            },
+          ]
         }
-      })
+      )
+      .addCase(
+        updatePropertyBooking,
+        (state, action: PayloadAction<UpdatePropertyBookingModel>) => {
+          const { myBooking, property } = action.payload
+          const { bookingId } = myBooking
+
+          state.myBookings = updateBookedPeriodsInBookings(
+            state.myBookings,
+            property.propertyId,
+            property.newBookedPeriods
+          ).map((booking) => {
+            if (booking.id === bookingId) {
+              return { ...booking, ...myBooking }
+            }
+            return booking
+          })
+        }
+      )
+      .addCase(
+        deletePropertyBooking,
+        (state, action: PayloadAction<DeletePropertyBookingModel>) => {
+          const payload = action.payload
+          state.myBookings = state.myBookings
+            .filter((booking) => booking.id !== payload.user.bookingId)
+            .map((booking) => {
+              if (booking.property.id === payload.user.propertyId) {
+                return {
+                  ...booking,
+                  property: {
+                    ...booking.property,
+                    booked_periods: payload.property.bookedPeriods,
+                  },
+                }
+              }
+              return booking
+            })
+        }
+      )
   },
 })
 

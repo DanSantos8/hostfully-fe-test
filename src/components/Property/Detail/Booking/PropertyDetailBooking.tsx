@@ -1,14 +1,18 @@
+import usePropertyDetailBooking from "@/hooks/usePropertyDetailBooking"
 import * as S from "./PropertyDetailBooking.styles"
 import PropertyBookingForm from "../../Booking/Form/PropertyBookingForm"
-import usePropertyDetailBooking from "./usePropertyDetailBooking"
 
 const PropertyDetailBooking = () => {
   const props = usePropertyDetailBooking()
 
   return (
-    <S.Container>
-      <PropertyBookingForm {...props} />
-    </S.Container>
+    <S.Booking>
+      <S.Container>
+        <S.Sticky>
+          <PropertyBookingForm {...props} />
+        </S.Sticky>
+      </S.Container>
+    </S.Booking>
   )
 }
 

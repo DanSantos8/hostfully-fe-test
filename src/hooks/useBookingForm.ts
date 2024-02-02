@@ -1,6 +1,6 @@
 import moment from "moment"
 import { Moment } from "moment"
-import { useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { FocusedInputShape } from "react-dates"
 import { BookedPeriod } from "@/models/property.models"
 type CalendarDate = Moment | null
@@ -21,10 +21,10 @@ const useBookingForm = (props: useBookingFormProps) => {
     cleaningFee,
     price,
     regularPrice,
-    // dateRange = ["", ""],
+    dateRange = [null, null],
   } = props
 
-  //const [startRange, endRange] = dateRange
+  const [startRange, endRange] = dateRange
 
   const [guests, setGuests] = useState(1)
   const [startDate, setStartDate] = useState<CalendarDate>(null)
@@ -100,7 +100,6 @@ const useBookingForm = (props: useBookingFormProps) => {
           ? endDate
           : findLastAvailableDate(startDate as Moment)
 
-      console.log(adjustedEndDate)
       setStartDate(startDate)
       setEndDate(adjustedEndDate)
 
@@ -130,6 +129,13 @@ const useBookingForm = (props: useBookingFormProps) => {
     })
   }
 
+  const initializeDates = useCallback(() => {
+    if (startRange && endRange) {
+      setStartDate(moment(startRange))
+      setEndDate(moment(endRange))
+    }
+  }, [endRange, startRange])
+
   const hasPromoPrice = useMemo(
     () => regularPrice > price,
     [price, regularPrice]
@@ -147,6 +153,9 @@ const useBookingForm = (props: useBookingFormProps) => {
   const totalPriceWithNoTax =
     totalBookedDaysWithNoCleaningFee + totalCleaningFee
 
+  useEffect(() => {
+    initializeDates()
+  }, [initializeDates])
   return {
     guests,
     startDate,
@@ -163,6 +172,7 @@ const useBookingForm = (props: useBookingFormProps) => {
     totalCleaningFee,
     totalPriceWithNoTax,
     isOutsideRange,
+    doesOverlap,
   }
 }
 

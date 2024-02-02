@@ -4,9 +4,9 @@ import styled from "styled-components"
 export const List = styled.div`
   display: grid;
   gap: ${space("large")};
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
 
   @media (max-width: 1024px) {
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
   }
 `

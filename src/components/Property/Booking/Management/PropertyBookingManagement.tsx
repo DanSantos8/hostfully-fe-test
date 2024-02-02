@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import * as S from "./PropertyBookingManagement.styles"
 import usePropertyBookingManagement from "./usePropertyBookingManagement"
 import PropertyBookingForm from "../Form/PropertyBookingForm"
+import { ACTIONS } from "@/constants/actions"
 
 type PropertyBookingManagement = {
   children: ReactNode
@@ -9,28 +10,30 @@ type PropertyBookingManagement = {
 }
 const PropertyBookingManagement = (props: PropertyBookingManagement) => {
   const { children, onClose } = props
-  const { handleAction, action, handleDeleteBooking, ...rest } =
+  const { handleAction, action, handleDeleteBooking, status, ...rest } =
     usePropertyBookingManagement({
       onClose,
     })
 
   const actions = {
-    0: (
+    [ACTIONS.GO_BACK]: (
       <S.Buttons>
-        <S.UpdateButton onClick={handleAction(1)}>
+        <S.UpdateButton onClick={handleAction(ACTIONS.UPDATE_BOOKING)}>
           Update your booking
         </S.UpdateButton>
-        <S.Button onClick={handleAction(2)}>Cancel your booking</S.Button>
+        <S.Button onClick={handleAction(ACTIONS.CANCEL_BOOKING)}>
+          Cancel your booking
+        </S.Button>
       </S.Buttons>
     ),
-    1: <PropertyBookingForm {...rest} loading={false} />,
-    2: (
+    [ACTIONS.UPDATE_BOOKING]: <PropertyBookingForm {...rest} status={status} />,
+    [ACTIONS.CANCEL_BOOKING]: (
       <S.Cancel>
         <S.Title>Are you sure?</S.Title>
         <S.UpdateButton onClick={handleDeleteBooking}>
           Yes, I want to cancel it.
         </S.UpdateButton>
-        <S.Button onClick={handleAction(0)}>Go back</S.Button>
+        <S.Button onClick={handleAction(ACTIONS.GO_BACK)}>Go back</S.Button>
       </S.Cancel>
     ),
   }
@@ -39,8 +42,8 @@ const PropertyBookingManagement = (props: PropertyBookingManagement) => {
     <S.Container>
       {children}
 
-      {action === 1 && (
-        <S.GoBack onClick={handleAction(0)}>
+      {action === ACTIONS.UPDATE_BOOKING && (
+        <S.GoBack onClick={handleAction(ACTIONS.GO_BACK)}>
           I don't want to update it.
         </S.GoBack>
       )}

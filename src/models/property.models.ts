@@ -1,6 +1,15 @@
+import { Status } from "@/constants/status"
 import { Moment } from "moment"
 import { FocusedInputShape } from "react-dates"
 type CalendarDate = Moment | null
+
+export interface Booking {
+  id: number
+  bookedPeriod: BookedPeriod
+  nightsBooked: number
+  guests: number
+  property: Property
+}
 
 type Host = {
   superhost: boolean
@@ -15,7 +24,7 @@ export type BookedPeriod = {
 }
 
 export interface Property {
-  id: string
+  id: number | null
   title: string
   location: string
   description: string
@@ -36,6 +45,7 @@ export interface Property {
 }
 
 export interface PropertyBookingFormProps {
+  success?: boolean
   maxGuest: number
   guests: number
   regularPrice: number
@@ -62,6 +72,5 @@ export interface PropertyBookingFormProps {
   >
   handleGuestsCount: (value: number) => () => void
   handleSubmit: (e: React.FormEvent<Element>) => void
-  loading: boolean
-  isOutsideRange: (day: Moment) => boolean
+  status: Status
 }

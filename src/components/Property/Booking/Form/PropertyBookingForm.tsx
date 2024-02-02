@@ -2,15 +2,18 @@ import { DateRangePicker } from "react-dates"
 import * as S from "./PropertyBookingForm.styles"
 import "react-dates/initialize"
 import "react-dates/lib/css/_datepicker.css"
-
 import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
+import Feedback from "@/components/Feedback/Feedback"
+import { StatusEnum } from "@/constants/status"
+import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
+import { ROUTES } from "@/constants/routes"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
     price,
     regularPrice,
-    loading,
+    status,
     endDate,
     focusedInput,
     guests,
@@ -29,16 +32,38 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     maxGuest,
   } = props
 
-  return (
-    <S.Container>
-      <S.Pricing>
-        <S.RegularPrice hasPromoPrice={hasPromoPrice}>
-          R${regularPrice}
-        </S.RegularPrice>
-        {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
-        <S.Text>p/noite</S.Text>
-      </S.Pricing>
-      <S.Form>
+  //! make UI structure better to give loading feedback
+  const renderForm = () => {
+    if (status === StatusEnum.FULFILLED) {
+      return (
+        <Feedback message="Property booked!" variant="SUCCESS">
+          <S.FeedbackButtons>
+            <p>
+              You can check your{" "}
+              <S.Navigate to={ROUTES.MY_BOOKINGS}>bookings</S.Navigate> or keep{" "}
+              <S.Navigate to={ROUTES.HOME}>discoverying</S.Navigate>
+            </p>
+          </S.FeedbackButtons>
+        </Feedback>
+      )
+    }
+
+    if (status === StatusEnum.REJECTED) {
+      return (
+        <Feedback message="Oops, we can't book right now :(">
+          <S.FeedbackButtons>
+            <p>
+              You can keep navigating into your{" "}
+              <S.Navigate to={ROUTES.MY_BOOKINGS}>bookings</S.Navigate> or keep{" "}
+              <S.Navigate to={ROUTES.HOME}>discoverying</S.Navigate>
+            </p>
+          </S.FeedbackButtons>
+        </Feedback>
+      )
+    }
+
+    return (
+      <>
         <S.Calendar>
           <S.CalendarRow>
             <S.CalendarLabel>CHECK-IN</S.CalendarLabel>
@@ -58,7 +83,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             customArrowIcon={<></>}
             displayFormat="MMM, DD - YYYY"
             isDayBlocked={isDayBlocked}
-            //isOutsideRange={isOutsideRange}
+            numberOfMonths={1}
           />
         </S.Calendar>
         <S.Guests>
@@ -81,26 +106,44 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             </S.GuestControl>
           </S.GuestColumn>
         </S.Guests>
-        <S.Button disabled={loading} onClick={(e) => handleSubmit(e)}>
-          {loading ? <Loading /> : "Reservar"}
+        <S.Button
+          disabled={status === StatusEnum.LOADING}
+          onClick={(e) => handleSubmit(e)}
+        >
+          {status === StatusEnum.LOADING ? <Loading /> : "Reservar"}
         </S.Button>
-      </S.Form>
-      <S.Summary>
-        <S.SummaryRow>
-          <S.Text>
-            R${currentPrice} x {nightsBooked} noites
-          </S.Text>
-          <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
-        </S.SummaryRow>
-        <S.SummaryRow>
-          <S.Text>Taxa de serviço do Airbnb</S.Text>
-          <S.Text>R${totalCleaningFee}</S.Text>
-        </S.SummaryRow>
-        <S.SummaryRow>
-          <S.Text>Total (sem impostos)</S.Text>
-          <S.Text>R${totalPriceWithNoTax}</S.Text>
-        </S.SummaryRow>
-      </S.Summary>
+      </>
+    )
+  }
+
+  return (
+    <S.Container>
+      <StateHandler loading={status === StatusEnum.LOADING}>
+        <S.Pricing>
+          <S.RegularPrice hasPromoPrice={hasPromoPrice}>
+            R${regularPrice}
+          </S.RegularPrice>
+          {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
+          <S.Text>p/noite</S.Text>
+        </S.Pricing>
+        <S.Form>{renderForm()}</S.Form>
+        <S.Summary>
+          <S.SummaryRow>
+            <S.Text>
+              R${currentPrice} x {nightsBooked} nights
+            </S.Text>
+            <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
+          </S.SummaryRow>
+          <S.SummaryRow>
+            <S.Text>Cleaning Fee</S.Text>
+            <S.Text>R${totalCleaningFee}</S.Text>
+          </S.SummaryRow>
+          <S.SummaryRow>
+            <S.Text>Total (no taxes)</S.Text>
+            <S.Text>R${totalPriceWithNoTax}</S.Text>
+          </S.SummaryRow>
+        </S.Summary>
+      </StateHandler>
     </S.Container>
   )
 }

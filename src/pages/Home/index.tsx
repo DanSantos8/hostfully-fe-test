@@ -1,14 +1,13 @@
 import Property from "@/components/Property"
 import * as S from "./Home.styles"
-import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import { useAppDispatch } from "@/hooks/useStore"
 import { useEffect } from "react"
-import { fetchProperties } from "@/store/Properties/PropertiesSlice"
-import PropertyCard from "@/components/Property/List/Card/PropertyCard"
+import { fetchProperties } from "@/store/Properties/PropertiesThunks"
+import ErrorBoundary from "@/components/Handlers/ErrorBoundary/ErrorBoundary"
+import ErrorHandler from "@/components/Handlers/ErrorHandler/ErrorHandler"
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  //REFACTOR
-  const { propertiesList } = useAppSelector((state) => state.properties)
 
   useEffect(() => {
     dispatch(fetchProperties())
@@ -16,11 +15,11 @@ const Home = () => {
 
   return (
     <S.Container>
-      <Property.List>
-        {propertiesList.map((property) => (
-          <PropertyCard key={property.id} {...property} />
-        ))}
-      </Property.List>
+      <ErrorBoundary
+        fallback={<ErrorHandler message="Oops, something went wrong." />}
+      >
+        <Property.List />
+      </ErrorBoundary>
     </S.Container>
   )
 }

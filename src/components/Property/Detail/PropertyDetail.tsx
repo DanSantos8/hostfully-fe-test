@@ -6,7 +6,13 @@ import Rating from "@/components/Rating"
 import Host from "@/components/Host/Host"
 import Tags from "@/components/Tags"
 import { useMemo } from "react"
+import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
+import { StatusEnum } from "@/constants/status"
 const PropertyDetail = () => {
+  const {
+    status,
+    errors: { detail: errorDetail },
+  } = useAppSelector((state) => state.propertyDetail)
   const {
     images,
     location,
@@ -18,7 +24,7 @@ const PropertyDetail = () => {
     maxGuest,
     beds,
     bedrooms,
-  } = useAppSelector((state) => state.properties.propertyDetail)
+  } = useAppSelector((state) => state.propertyDetail.property)
 
   const propertyTags = useMemo(
     () => ({
@@ -39,21 +45,26 @@ const PropertyDetail = () => {
 
   return (
     <>
-      <PropertyCarousel images={images} />
-      <S.Content>
-        <S.Title>
-          {title} - {location}
-        </S.Title>
-        <PropertyTags tags={mappedPropertyTags} />
-        <Rating rating={rating} />
-      </S.Content>
-      <S.Content>
-        <Host isSuperHost={host.superhost} name={host.name} />
-      </S.Content>
-      <S.Content>
-        <S.Description>{description}</S.Description>
-        <Tags tags={amenities} variant="large" />
-      </S.Content>
+      <StateHandler
+        error={errorDetail}
+        loading={status.detail === StatusEnum.LOADING}
+      >
+        <PropertyCarousel images={images} />
+        <S.Content>
+          <S.Title>
+            {title} - {location}
+          </S.Title>
+          <PropertyTags tags={mappedPropertyTags} />
+          <Rating rating={rating} />
+        </S.Content>
+        <S.Content>
+          <Host isSuperHost={host.superhost} name={host.name} />
+        </S.Content>
+        <S.Content>
+          <S.Description>{description}</S.Description>
+          <Tags tags={amenities} variant="large" />
+        </S.Content>
+      </StateHandler>
     </>
   )
 }

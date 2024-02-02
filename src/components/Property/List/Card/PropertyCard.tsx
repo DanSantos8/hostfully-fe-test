@@ -1,3 +1,4 @@
+import Rating from "@/components/Rating"
 import PropertyGallery from "../../Carousel/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
 import { useMemo } from "react"
@@ -14,14 +15,11 @@ type PropertyCardProps = {
 const PropertyCard = (props: PropertyCardProps) => {
   const {
     id,
-    location = "São Vicente, Brasil",
-    images = [
-      "https://chnapartments.com/assets/images/cache/kitchen-and-living-room-a4be940df9ffd81de9014c7fc0f53336.jpg",
-      "https://www.bproperty.com/blog/wp-content/uploads/2021/04/house-1867187_1920.jpg",
-    ],
-    price = 345,
-    rating = 4.97,
-    title = "8 minuto(s) a pé até Itararé Beach",
+    location = "",
+    images = [],
+    price = 0,
+    rating = 0,
+    title = "",
   } = props
 
   const url = useMemo(() => `/property-detail/${id}`, [id])
@@ -32,15 +30,13 @@ const PropertyCard = (props: PropertyCardProps) => {
       <S.Description>
         <S.Title>
           <S.Text>{location}</S.Text>
-          <S.Rate>
-            <S.LightText>{rating}</S.LightText>
-          </S.Rate>
+          <Rating rating={rating} />
         </S.Title>
         <S.Reference>{title}</S.Reference>
       </S.Description>
       <S.Price>
         <S.Text>R$ {price}</S.Text>
-        <S.LightText>noite</S.LightText>
+        <S.LightText>night</S.LightText>
       </S.Price>
     </S.Container>
   )

@@ -1,0 +1,5 @@
+export enum ACTIONS {
+  GO_BACK = 0,
+  UPDATE_BOOKING = 1,
+  CANCEL_BOOKING = 2,
+}

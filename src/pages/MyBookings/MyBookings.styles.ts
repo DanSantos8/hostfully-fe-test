@@ -9,6 +9,6 @@ export const Container = styled.div`
 `
 
 export const Title = styled.h1`
-  font-size: ${fontSize("xxlarge")};
+  font-size: ${fontSize("xxxlarge")};
   font-weight: ${weight("semibold")};
 `
