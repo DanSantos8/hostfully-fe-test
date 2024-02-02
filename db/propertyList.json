@@ -31,6 +31,10 @@
         {
           "start_date": "2024-04-01",
           "end_date": "2024-04-10"
+        },
+        {
+          "start_date": "2024-04-28",
+          "end_date": "2024-04-30"
         }
       ],
       "images": [
@@ -231,13 +235,24 @@
         "2024-04-25",
         "2024-05-05"
       ],
-      "booked_periods": [],
-      "images": ["https://gallery.streamlinevrs.com/units-gallery/00/06/71/image_155482781.jpeg", "https://cuddleupcabinrentals.com/Cabins/147_Andersen_Dr__3_.jpg"],
+      "booked_periods": [
+        {
+          "start_date": "2024-04-25",
+          "end_date": "2024-05-05"
+        },
+        {
+          "start_date": "2024-04-01",
+          "end_date": "2024-04-06"
+        }
+      ],
+      "images": [
+        "https://gallery.streamlinevrs.com/units-gallery/00/06/71/image_155482781.jpeg",
+        "https://cuddleupcabinrentals.com/Cabins/147_Andersen_Dr__3_.jpg"
+      ],
       "maxGuest": 4,
       "bedrooms": 2,
       "beds": 2,
       "cleaningFee": 45
     }
-    
   ]
 }
