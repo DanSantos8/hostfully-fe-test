@@ -1,8 +1,8 @@
 import { Status } from "@/constants/status"
 import { Moment } from "moment"
 import { FocusedInputShape } from "react-dates"
-type CalendarDate = Moment | null
 
+export type CalendarDate = Moment | null
 export interface Booking {
   id: number
   bookedPeriod: BookedPeriod
