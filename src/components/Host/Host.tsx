@@ -22,7 +22,7 @@ const Host = (props: HostProps) => {
   const tags = useMemo(
     () => [
       superHostTag,
-      `${time.years ? `${time.years} years and` : ""}  ${
+      `${time.years ? `${time.years} year(s)` : ""}  ${
         time.months ? `${time.months} months` : ""
       } `,
     ],
