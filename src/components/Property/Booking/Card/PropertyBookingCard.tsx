@@ -15,6 +15,7 @@ type PropertyBookingCardsProps = {
   nightsBooked: number
   price: number
   images: string[]
+  amenities: string[]
 }
 
 const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
@@ -26,6 +27,7 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
     nightsBooked = 1,
     price = 0,
     images,
+    amenities = [],
   } = props
 
   const { start_date, end_date } = bookedPeriod
@@ -43,10 +45,7 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
 
       <S.Details>
         <S.Title>{title}</S.Title>
-        <Tags
-          tags={["Piscina", "Vista para o Mar", "Estacionamento"]}
-          variant="medium"
-        />
+        <Tags tags={amenities} variant="medium" />
         <S.Text>
           {formatDate(start_date)} - {formatDate(end_date)}
         </S.Text>

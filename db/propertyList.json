@@ -2,16 +2,18 @@
   "properties": [
     {
       "id": "1001",
-      "title": "Apartamento Aconchegante no Centro da Cidade",
-      "location": "São Paulo, Brasil",
-      "type": "Apartamento",
-      "description": "Descubra a vibrante São Paulo hospedando-se neste apartamento aconchegante e moderno no coração da cidade. Perfeito para até 4 hóspedes, oferece uma experiência imersiva na vida urbana, combinando conforto e conveniência. Desfrute de comodidades como Wi-Fi de alta velocidade, cozinha equipada e ar condicionado, tornando sua estadia agradável em qualquer época do ano. Com uma classificação de 4.8 e mais de 150 avaliações, este apartamento, gerenciado pelo superhost Carlos, promete uma experiência de hospedagem excepcional.",
+      "title": "Modern Downtown Apartment",
+      "location": "São Paulo, Brazil",
+      "type": "Apartment",
+      "description": "Experience the lively city of São Paulo by staying in this modern downtown apartment. Suitable for up to 4 guests, it provides an immersive urban lifestyle with comfort and convenience. Enjoy amenities such as high-speed Wi-Fi, a fully equipped kitchen, and air conditioning for a pleasant stay year-round. With a rating of 4.8 and over 150 reviews, this apartment, managed by superhost Carlos, promises an exceptional lodging experience.",
       "price": 120,
       "regularPrice": 150,
       "amenities": [
-        "Wi-Fi",
-        "Cozinha Equipada",
-        "Ar Condicionado"
+        "High-Speed Wi-Fi",
+        "Fully Equipped Kitchen",
+        "Air Conditioning",
+        "Gym Access",
+        "Balcony with City Views"
       ],
       "rating": 4.8,
       "number_of_reviews": 154,
@@ -29,22 +31,6 @@
         {
           "start_date": "2024-04-01",
           "end_date": "2024-04-10"
-        },
-        {
-          "start_date": "2024-04-10",
-          "end_date": "2024-04-13"
-        },
-        {
-          "start_date": "2024-04-14",
-          "end_date": "2024-04-20"
-        },
-        {
-          "start_date": "2024-04-20",
-          "end_date": "2024-04-27"
-        },
-        {
-          "start_date": "2024-04-28",
-          "end_date": "2024-04-30"
         }
       ],
       "images": [
@@ -52,26 +38,30 @@
         "https://images.pexels.com/photos/3288102/pexels-photo-3288102.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/3288103/pexels-photo-3288103.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
       ],
-      "maxGuest": 8,
-      "bedrooms": 3,
-      "beds": 5,
+      "maxGuest": 4,
+      "bedrooms": 2,
+      "beds": 3,
       "cleaningFee": 50
     },
     {
       "id": "1002",
-      "title": "Casa de Praia com Vista Incrível",
-      "location": "Rio de Janeiro, Brasil",
-      "type": "Casa",
-      "description": "Relaxe nesta deslumbrante casa de praia em Rio de Janeiro, onde o luxo encontra a natureza. Ideal para até 8 pessoas, esta propriedade oferece uma experiência única com sua piscina privativa e vistas espetaculares do mar. Equipada com estacionamento, esta casa é um refúgio tranquilo, perfeito para grupos que buscam conforto e exclusividade. A anfitriã Mariana, uma superhost, assegura um serviço de qualidade e uma estadia memorável, evidenciado pela excelente classificação de 4.9.",
-      "price": 250,
-      "regularPrice": 250,
+      "title": "Luxury Beachfront Villa",
+      "location": "Florianópolis, Brazil",
+      "type": "Villa",
+      "description": "Indulge in luxury at this beachfront villa in Florianópolis, offering an unforgettable experience for up to 10 guests. This property boasts a private pool, direct beach access, and breathtaking ocean views. Enjoy top-notch amenities including a gourmet kitchen, a private cinema, and a fitness center. Hosted by the renowned superhost Mariana, it guarantees a world-class stay with a stellar rating of 4.9.",
+      "price": 350,
+      "regularPrice": 350,
       "amenities": [
-        "Piscina",
-        "Vista para o Mar",
-        "Estacionamento"
+        "Private Pool",
+        "Direct Beach Access",
+        "Gourmet Kitchen",
+        "Private Cinema",
+        "Fitness Center",
+        "Jacuzzi",
+        "BBQ Area"
       ],
       "rating": 4.9,
-      "number_of_reviews": 89,
+      "number_of_reviews": 102,
       "host": {
         "superhost": true,
         "name": "Mariana",
@@ -79,35 +69,46 @@
         "response_rate": 95
       },
       "availability": [
-        "2024-03-01",
-        "2024-03-10"
+        "2024-03-15",
+        "2024-03-25"
       ],
-      "booked_periods": [],
+      "booked_periods": [
+        {
+          "start_date": "2024-03-15",
+          "end_date": "2024-03-20"
+        },
+        {
+          "start_date": "2024-03-21",
+          "end_date": "2024-03-23"
+        }
+      ],
       "images": [
         "https://images.pexels.com/photos/3288104/pexels-photo-3288104.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
       ],
-      "maxGuest": 8,
-      "bedrooms": 3,
-      "beds": 5,
-      "cleaningFee": 50
+      "maxGuest": 10,
+      "bedrooms": 5,
+      "beds": 7,
+      "cleaningFee": 100
     },
     {
       "id": "1003",
-      "title": "Chalé Aconchegante na Montanha",
-      "location": "Campos do Jordão, Brasil",
-      "type": "Chalé",
-      "description": " Escape para o sereno Chalé Aconchegante em Campos do Jordão, um refúgio ideal para casais ou viajantes solitários. Situado em meio à tranquilidade das montanhas, este chalé oferece um ambiente acolhedor com lareira, cozinha equipada e proximidade com a natureza. Perfeito para se desconectar da rotina diária e recarregar as energias. Com uma avaliação de 4.7, este chalé, administrado por Eduardo, proporciona uma estadia íntima e relaxante com todas as comodidades modernas necessárias.",
-      "price": 180,
-      "regularPrice": 180,
+      "title": "Rustic Mountain Cabin",
+      "location": "Gramado, Brazil",
+      "type": "Cabin",
+      "description": "Escape to the tranquility of Gramado in this rustic mountain cabin, perfect for couples or solo travelers. Nestled in the serene mountains, this cabin offers a cozy atmosphere with a wood-burning fireplace, a fully equipped kitchen, and a private outdoor hot tub. With a rating of 4.7, this cabin, managed by Eduardo, provides an intimate and rejuvenating retreat with modern comforts.",
+      "price": 150,
+      "regularPrice": 150,
       "amenities": [
-        "Lareira",
-        "Proximidade com a Natureza",
-        "Cozinha Equipada"
+        "Wood-Burning Fireplace",
+        "Private Outdoor Hot Tub",
+        "Fully Equipped Kitchen",
+        "Hiking Trails",
+        "Mountain Views"
       ],
       "rating": 4.7,
-      "number_of_reviews": 112,
+      "number_of_reviews": 89,
       "host": {
         "superhost": false,
         "name": "Eduardo",
@@ -115,8 +116,8 @@
         "response_rate": 99
       },
       "availability": [
-        "2024-03-01",
-        "2024-03-10"
+        "2024-03-10",
+        "2024-03-20"
       ],
       "booked_periods": [],
       "images": [
@@ -124,10 +125,119 @@
         "https://images.pexels.com/photos/87223/pexels-photo-87223.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
       ],
-      "maxGuest": 8,
-      "bedrooms": 3,
-      "beds": 5,
-      "cleaningFee": 50
+      "maxGuest": 2,
+      "bedrooms": 1,
+      "beds": 1,
+      "cleaningFee": 30
+    },
+    {
+      "id": "1004",
+      "title": "Tranquil Countryside Cottage",
+      "location": "Canela, Brazil",
+      "type": "Cottage",
+      "description": "Escape to the peaceful countryside of Canela in this charming cottage, perfect for a family retreat. Surrounded by lush greenery and rolling hills, this cottage offers a serene atmosphere with two spacious bedrooms, a cozy living area, and a fully equipped kitchen. Enjoy the fresh air on the cottage's private patio. With a rating of 4.6, this cottage, managed by host Isabella, promises a relaxing and rejuvenating getaway.",
+      "price": 120,
+      "regularPrice": 140,
+      "amenities": [
+        "Fully Equipped Kitchen",
+        "Private Patio",
+        "Garden Views",
+        "BBQ Grill",
+        "Pet-Friendly"
+      ],
+      "rating": 4.6,
+      "number_of_reviews": 65,
+      "host": {
+        "superhost": true,
+        "name": "Isabella",
+        "member_since": "2021-02-10",
+        "response_rate": 97
+      },
+      "availability": [
+        "2024-04-15",
+        "2024-04-30"
+      ],
+      "booked_periods": [],
+      "images": [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/410263732.jpg?k=d8b952f3cc14cd05008460f3759b029945340217e0122d83b03a15c1671d5306&o=&hp=1",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/475423235.jpg?k=062734626a628512528903c60a5e6918a0aead6c4faa9f6d6a55382f5a6d640a&o=&hp=1"
+      ],
+      "maxGuest": 6,
+      "bedrooms": 2,
+      "beds": 3,
+      "cleaningFee": 40
+    },
+    {
+      "id": "1005",
+      "title": "Urban Loft in the Heart of Rio",
+      "location": "Rio de Janeiro, Brazil",
+      "type": "Loft",
+      "description": "Discover the vibrant culture of Rio de Janeiro by staying in this modern urban loft located in the heart of the city. Ideal for couples or solo travelers, this loft offers a stylish and comfortable space with a spacious living area, a fully equipped kitchen, and a rooftop terrace with stunning city views. Experience the best of Rio's nightlife and attractions right at your doorstep. Managed by superhost Ricardo, this loft guarantees a memorable city experience with a rating of 4.9.",
+      "price": 180,
+      "regularPrice": 200,
+      "amenities": [
+        "High-Speed Wi-Fi",
+        "Fully Equipped Kitchen",
+        "Rooftop Terrace",
+        "City Views",
+        "Gym Access"
+      ],
+      "rating": 4.9,
+      "number_of_reviews": 78,
+      "host": {
+        "superhost": true,
+        "name": "Ricardo",
+        "member_since": "2022-01-05",
+        "response_rate": 98
+      },
+      "availability": [
+        "2024-04-10",
+        "2024-04-20"
+      ],
+      "booked_periods": [],
+      "images": [
+        "https://a0.muscache.com/im/pictures/b442c38f-18f8-45c8-b407-e7a7aeea9ace.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/b4bf65e1-2eb4-47b3-b21e-1d44186fadb1.jpg?im_w=720"
+      ],
+      "maxGuest": 2,
+      "bedrooms": 1,
+      "beds": 1,
+      "cleaningFee": 35
+    },
+    {
+      "id": "1006",
+      "title": "Mountain View Cabin Retreat",
+      "location": "Itatiaia, Brazil",
+      "type": "Cabin",
+      "description": "Escape to the tranquility of Itatiaia National Park in this cozy cabin retreat. Nestled in the mountains, this cabin offers breathtaking views of the surrounding peaks and forests. It features a rustic yet comfortable interior with a wood-burning stove, a well-equipped kitchen, and a spacious deck for outdoor relaxation. With a rating of 4.8, this cabin, managed by host Sofia, provides a peaceful and nature-filled getaway.",
+      "price": 160,
+      "regularPrice": 180,
+      "amenities": [
+        "Wood-Burning Stove",
+        "Fully Equipped Kitchen",
+        "Mountain Views",
+        "Deck",
+        "Hiking Trails"
+      ],
+      "rating": 4.8,
+      "number_of_reviews": 92,
+      "host": {
+        "superhost": true,
+        "name": "Sofia",
+        "member_since": "2022-03-20",
+        "response_rate": 97
+      },
+      "availability": [
+        "2024-04-25",
+        "2024-05-05"
+      ],
+      "booked_periods": [],
+      "images": ["https://gallery.streamlinevrs.com/units-gallery/00/06/71/image_155482781.jpeg", "https://cuddleupcabinrentals.com/Cabins/147_Andersen_Dr__3_.jpg"],
+      "maxGuest": 4,
+      "bedrooms": 2,
+      "beds": 2,
+      "cleaningFee": 45
     }
+    
   ]
 }

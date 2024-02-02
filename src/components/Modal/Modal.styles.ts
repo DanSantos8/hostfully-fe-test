@@ -1,3 +1,4 @@
+import { toRem } from "@/utils/helpers"
 import styled from "styled-components"
 
 export const ModalBackground = styled.div`
@@ -21,6 +22,7 @@ export const ModalContainer = styled.div`
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
+  max-width: ${toRem(480)};
   max-height: 80vh;
   overflow-y: auto;
 `
