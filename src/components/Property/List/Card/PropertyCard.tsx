@@ -3,7 +3,7 @@ import PropertyGallery from "../../Carousel/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
 import { useMemo } from "react"
 
-type PropertyCardProps = {
+export type PropertyCardProps = {
   id: string
   images: string[]
   location: string
@@ -25,7 +25,7 @@ const PropertyCard = (props: PropertyCardProps) => {
   const url = useMemo(() => `/property-detail/${id}`, [id])
 
   return (
-    <S.Container to={url}>
+    <S.Container to={url} data-testid="property-card">
       <PropertyGallery images={images} />
       <S.Description>
         <S.Title>
@@ -35,7 +35,7 @@ const PropertyCard = (props: PropertyCardProps) => {
         <S.Reference>{title}</S.Reference>
       </S.Description>
       <S.Price>
-        <S.Text>R$ {price}</S.Text>
+        <S.Text>US$ {price}</S.Text>
         <S.LightText>night</S.LightText>
       </S.Price>
     </S.Container>

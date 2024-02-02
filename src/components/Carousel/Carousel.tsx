@@ -21,9 +21,9 @@ const Carousel: React.FC<CarouselProps> = (props) => {
     setIndex((prev) => (prev - 1 >= 0 ? prev - 1 : childrenArray.length - 1))
 
   return (
-    <S.Container>
+    <S.Container data-testid="carousel">
       {controls && <CarouselControls onNext={onNext} onPrev={onPrev} />}
-      <S.ContentWrapper>
+      <S.ContentWrapper data-testid="carousel-content">
         <S.Content>{childrenArray[index]}</S.Content>
       </S.ContentWrapper>
     </S.Container>

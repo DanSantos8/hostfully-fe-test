@@ -24,6 +24,7 @@ const PropertyBookingList = () => {
             nightsBooked: booking.nightsBooked,
             price: property.price,
             images: property.images,
+            amenities: property.amenities,
           }
 
           return (
