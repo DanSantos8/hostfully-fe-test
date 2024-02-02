@@ -1,3 +1,4 @@
+import Rating from "@/components/Rating"
 import PropertyGallery from "../../Carousel/PropertyCarousel"
 import * as S from "./PropertyCard.styles"
 import { useMemo } from "react"
@@ -32,9 +33,7 @@ const PropertyCard = (props: PropertyCardProps) => {
       <S.Description>
         <S.Title>
           <S.Text>{location}</S.Text>
-          <S.Rate>
-            <S.LightText>{rating}</S.LightText>
-          </S.Rate>
+          <Rating rating={rating} />
         </S.Title>
         <S.Reference>{title}</S.Reference>
       </S.Description>

@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  z-index: 20;
+  z-index: 0;
   flex: 1;
   overflow: visible;
 `

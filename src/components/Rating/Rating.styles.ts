@@ -5,4 +5,5 @@ export const Rating = styled.div`
   display: flex;
   align-items: center;
   gap: ${space("xsmall")};
+  color: black;
 `

@@ -25,9 +25,8 @@ const PropertyDetailPage = () => {
         <S.Information>
           <Property.Detail />
         </S.Information>
-        <S.Booking>
-          <Property.Booking />
-        </S.Booking>
+
+        <Property.Booking />
       </S.Container>
     </ErrorBoundary>
   )
