@@ -7,9 +7,10 @@ import Host from "@/components/Host/Host"
 import Tags from "@/components/Tags"
 import { useMemo } from "react"
 import StateHandler from "@/components/StateHandler/StateHandler"
+import { StatusEnum } from "@/constants/status"
 const PropertyDetail = () => {
   const {
-    loadings: { detail: loadingDetail },
+    status,
     errors: { detail: errorDetail },
   } = useAppSelector((state) => state.propertyDetail)
   const {
@@ -44,7 +45,10 @@ const PropertyDetail = () => {
 
   return (
     <>
-      <StateHandler error={errorDetail} loading={loadingDetail}>
+      <StateHandler
+        error={errorDetail}
+        loading={status.detail === StatusEnum.LOADING}
+      >
         <PropertyCarousel images={images} />
         <S.Content>
           <S.Title>

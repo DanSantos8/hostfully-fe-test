@@ -1,3 +1,4 @@
+import { Status } from "@/constants/status"
 import { Moment } from "moment"
 import { FocusedInputShape } from "react-dates"
 type CalendarDate = Moment | null
@@ -71,5 +72,5 @@ export interface PropertyBookingFormProps {
   >
   handleGuestsCount: (value: number) => () => void
   handleSubmit: (e: React.FormEvent<Element>) => void
-  loading: boolean
+  status: Status
 }

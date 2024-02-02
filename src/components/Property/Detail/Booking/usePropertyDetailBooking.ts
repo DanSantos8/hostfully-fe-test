@@ -4,14 +4,10 @@ import { PropertyBookingFormProps } from "@/models/property.models"
 import { addBookedPeriod } from "@/store/Properties/PropertiesThunks"
 import moment from "moment"
 import { Moment } from "moment"
-import { useState } from "react"
 
-interface usePropertyDetailBooking extends PropertyBookingFormProps {
-  success: boolean
-}
+interface usePropertyDetailBooking extends PropertyBookingFormProps {}
 
 const usePropertyDetailBooking = (): usePropertyDetailBooking => {
-  const [success, setSuccess] = useState(false)
   const store = useAppSelector((state) => state.propertyDetail)
   const {
     id,
@@ -31,7 +27,7 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
   })
 
   const {
-    loadings: { bookingForm },
+    status: { bookingForm },
   } = store
 
   const dispatch = useAppDispatch()
@@ -56,17 +52,14 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
         nightsBooked: bookingFormValues.nightsBooked,
       })
     )
-      .unwrap()
-      .then(() => setSuccess(true))
   }
   return {
     price,
     regularPrice,
     maxGuest,
-    loading: bookingForm,
+    status: bookingForm,
     ...bookingFormValues,
     handleSubmit,
-    success,
   }
 }
 

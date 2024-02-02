@@ -6,12 +6,13 @@ import "react-dates/lib/css/_datepicker.css"
 import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
 import Feedback from "@/components/Feedback/Feedback"
+import { StatusEnum } from "@/constants/status"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
     price,
     regularPrice,
-    loading,
+    status,
     endDate,
     focusedInput,
     guests,
@@ -28,16 +29,29 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     totalPriceWithNoTax,
     handleSubmit,
     maxGuest,
-    success,
   } = props
 
   const renderForm = () => {
-    if (success) {
+    if (status === StatusEnum.FULFILLED) {
       return (
-        <Feedback message="Property booked!">
+        <Feedback message="Property booked!" variant="SUCCESS">
           <S.FeedbackButtons>
             <p>
               You can check your{" "}
+              <S.Navigate to="/my-bookings">bookings</S.Navigate> or keep{" "}
+              <S.Navigate to="/">discoverying</S.Navigate>
+            </p>
+          </S.FeedbackButtons>
+        </Feedback>
+      )
+    }
+
+    if (status === StatusEnum.REJECTED) {
+      return (
+        <Feedback message="Oops, we can't book right now :(">
+          <S.FeedbackButtons>
+            <p>
+              You can keep navigating into your{" "}
               <S.Navigate to="/my-bookings">bookings</S.Navigate> or keep{" "}
               <S.Navigate to="/">discoverying</S.Navigate>
             </p>
@@ -89,8 +103,11 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             </S.GuestControl>
           </S.GuestColumn>
         </S.Guests>
-        <S.Button disabled={loading} onClick={(e) => handleSubmit(e)}>
-          {loading ? <Loading /> : "Reservar"}
+        <S.Button
+          disabled={status === StatusEnum.LOADING}
+          onClick={(e) => handleSubmit(e)}
+        >
+          {status === StatusEnum.LOADING ? <Loading /> : "Reservar"}
         </S.Button>
       </>
     )

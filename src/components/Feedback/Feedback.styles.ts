@@ -1,7 +1,7 @@
 import { colors, fontSize, space, weight } from "@/utils/helpers"
 import styled from "styled-components"
 
-export const Container = styled.div`
+export const Container = styled.div<{ variant: "SUCCESS" | "WARNING" }>`
   display: flex;
   flex-direction: column;
   gap: ${space("xxsmall")};
@@ -9,7 +9,8 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   padding: ${space("medium")} 0;
-  background-color: ${colors("success")};
+  background-color: ${({ variant }) =>
+    variant === "WARNING" ? colors("error") : colors("success")};
 `
 
 export const Title = styled.h2`

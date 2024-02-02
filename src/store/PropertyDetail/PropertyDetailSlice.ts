@@ -4,12 +4,13 @@ import {
   addBookedPeriod,
   fetchPropertyById,
 } from "../Properties/PropertiesThunks"
+import { Status, StatusEnum } from "@/constants/status"
 
 type PropertiesState = {
   property: Property
-  loadings: {
-    detail: boolean
-    bookingForm: boolean
+  status: {
+    detail: Status
+    bookingForm: Status
   }
   errors: {
     detail: string | null | undefined
@@ -43,9 +44,9 @@ const initialState: PropertiesState = {
     bedrooms: 0,
     beds: 0,
   },
-  loadings: {
-    detail: false,
-    bookingForm: false,
+  status: {
+    detail: "IDLE",
+    bookingForm: "IDLE",
   },
   errors: {
     detail: null,
@@ -53,11 +54,13 @@ const initialState: PropertiesState = {
   },
 }
 
-type PropertiesStatesStatus = keyof PropertiesState["loadings"]
+type PropertiesStatesStatus = keyof PropertiesState["errors"]
 
-const setLoading = (state: PropertiesState, key: PropertiesStatesStatus) => {
-  state.loadings[key] = true
-  state.errors[key] = null
+const setLoading = (state: PropertiesState, keys: PropertiesStatesStatus[]) => {
+  for (const currentKey of keys) {
+    state.status[currentKey] = StatusEnum.LOADING
+    state.errors[currentKey] = null
+  }
 }
 
 const setError = (
@@ -66,7 +69,7 @@ const setError = (
   key: PropertiesStatesStatus
 ) => {
   state.errors[key] = action.error.message
-  state.loadings[key] = false
+  state.status[key] = StatusEnum.REJECTED
 }
 
 const propertiesSlice = createSlice({
@@ -76,20 +79,21 @@ const propertiesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPropertyById.pending, (state) => {
-        setLoading(state, "detail")
+        setLoading(state, ["detail"])
       })
       .addCase(fetchPropertyById.fulfilled, (state, action) => {
-        state.loadings.detail = false
+        state.status.detail = StatusEnum.FULFILLED
+        state.status.bookingForm = StatusEnum.IDLE
         state.property = action.payload
       })
       .addCase(fetchPropertyById.rejected, (state, action) => {
         setError(state, action, "detail")
       })
       .addCase(addBookedPeriod.pending, (state) => {
-        setLoading(state, "bookingForm")
+        setLoading(state, ["bookingForm"])
       })
       .addCase(addBookedPeriod.fulfilled, (state, action) => {
-        state.loadings.bookingForm = false
+        state.status.bookingForm = StatusEnum.FULFILLED
         state.property = { ...state.property, ...action.payload.property }
       })
       .addCase(addBookedPeriod.rejected, (state, action) => {
