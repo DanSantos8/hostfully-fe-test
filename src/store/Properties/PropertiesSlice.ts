@@ -68,6 +68,7 @@ const propertiesSlice = createSlice({
         fetchProperties.fulfilled,
         (state, action: PayloadAction<Property[]>) => {
           state.propertiesList = action.payload
+          state.error = null
           state.loading = false
         }
       )
@@ -75,12 +76,14 @@ const propertiesSlice = createSlice({
       .addCase(fetchPropertyById.pending, setLoading)
       .addCase(fetchPropertyById.fulfilled, (state, action) => {
         state.loading = false
+        state.error = null
         state.propertyDetail = action.payload
       })
       .addCase(fetchPropertyById.rejected, setError)
       .addCase(addBookedPeriod.pending, setLoading)
       .addCase(addBookedPeriod.fulfilled, (state, action) => {
         state.loading = false
+        state.error = null
 
         state.propertyDetail = action.payload.property
       })

@@ -7,7 +7,9 @@ const PropertyDetailBooking = () => {
 
   return (
     <S.Container>
-      <PropertyBookingForm {...props} />
+      <S.Sticky>
+        <PropertyBookingForm {...props} />
+      </S.Sticky>
     </S.Container>
   )
 }

@@ -1,12 +1,22 @@
-import React, { ReactNode } from "react"
 import * as S from "./PropertyList.styles"
+import PropertyCard from "./Card/PropertyCard"
+import { useAppSelector } from "@/hooks/useStore"
+import StateHandler from "@/components/StateHandler/StateHandler"
 
-type PropertyListProps = {
-  children: ReactNode
-}
+const PropertyList = () => {
+  const { propertiesList, error, loading } = useAppSelector(
+    (state) => state.properties
+  )
 
-const PropertyList: React.FC<PropertyListProps> = ({ children }) => {
-  return <S.Container data-testid="property-list">{children}</S.Container>
+  return (
+    <S.Container data-testid="property-list">
+      <StateHandler loading={loading} error={error}>
+        {propertiesList.map((property) => (
+          <PropertyCard key={property.id} {...property} />
+        ))}
+      </StateHandler>
+    </S.Container>
+  )
 }
 
 export default PropertyList

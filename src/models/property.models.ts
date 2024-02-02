@@ -44,6 +44,7 @@ export interface Property {
 }
 
 export interface PropertyBookingFormProps {
+  success?: boolean
   maxGuest: number
   guests: number
   regularPrice: number

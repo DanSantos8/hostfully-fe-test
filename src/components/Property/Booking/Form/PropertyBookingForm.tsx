@@ -5,6 +5,7 @@ import "react-dates/lib/css/_datepicker.css"
 
 import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
+import Feedback from "@/components/Feedback/Feedback"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
@@ -27,18 +28,16 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
     totalPriceWithNoTax,
     handleSubmit,
     maxGuest,
+    success,
   } = props
 
-  return (
-    <S.Container>
-      <S.Pricing>
-        <S.RegularPrice hasPromoPrice={hasPromoPrice}>
-          R${regularPrice}
-        </S.RegularPrice>
-        {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
-        <S.Text>p/noite</S.Text>
-      </S.Pricing>
-      <S.Form>
+  const renderForm = () => {
+    if (success) {
+      return <Feedback />
+    }
+
+    return (
+      <>
         <S.Calendar>
           <S.CalendarRow>
             <S.CalendarLabel>CHECK-IN</S.CalendarLabel>
@@ -83,7 +82,20 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
         <S.Button disabled={loading} onClick={(e) => handleSubmit(e)}>
           {loading ? <Loading /> : "Reservar"}
         </S.Button>
-      </S.Form>
+      </>
+    )
+  }
+
+  return (
+    <S.Container>
+      <S.Pricing>
+        <S.RegularPrice hasPromoPrice={hasPromoPrice}>
+          R${regularPrice}
+        </S.RegularPrice>
+        {hasPromoPrice && <S.RegularPrice>R${price}</S.RegularPrice>}
+        <S.Text>p/noite</S.Text>
+      </S.Pricing>
+      <S.Form>{renderForm()}</S.Form>
       <S.Summary>
         <S.SummaryRow>
           <S.Text>

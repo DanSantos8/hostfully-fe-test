@@ -6,7 +6,9 @@ import Rating from "@/components/Rating"
 import Host from "@/components/Host/Host"
 import Tags from "@/components/Tags"
 import { useMemo } from "react"
+import StateHandler from "@/components/StateHandler/StateHandler"
 const PropertyDetail = () => {
+  const { loading, error } = useAppSelector((state) => state.properties)
   const {
     images,
     location,
@@ -39,21 +41,23 @@ const PropertyDetail = () => {
 
   return (
     <>
-      <PropertyCarousel images={images} />
-      <S.Content>
-        <S.Title>
-          {title} - {location}
-        </S.Title>
-        <PropertyTags tags={mappedPropertyTags} />
-        <Rating rating={rating} />
-      </S.Content>
-      <S.Content>
-        <Host isSuperHost={host.superhost} name={host.name} />
-      </S.Content>
-      <S.Content>
-        <S.Description>{description}</S.Description>
-        <Tags tags={amenities} variant="large" />
-      </S.Content>
+      <StateHandler error={error} loading={loading}>
+        <PropertyCarousel images={images} />
+        <S.Content>
+          <S.Title>
+            {title} - {location}
+          </S.Title>
+          <PropertyTags tags={mappedPropertyTags} />
+          <Rating rating={rating} />
+        </S.Content>
+        <S.Content>
+          <Host isSuperHost={host.superhost} name={host.name} />
+        </S.Content>
+        <S.Content>
+          <S.Description>{description}</S.Description>
+          <Tags tags={amenities} variant="large" />
+        </S.Content>
+      </StateHandler>
     </>
   )
 }
