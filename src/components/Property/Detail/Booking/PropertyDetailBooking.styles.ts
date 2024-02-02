@@ -13,18 +13,14 @@ export const Sticky = styled.div`
   right: 0;
 `
 
-export const Booking = styled.div<{ showForm: boolean }>`
+export const Booking = styled.div`
   display: flex;
   flex: 1;
   position: relative;
   max-width: ${toRem(400)};
+
   @media (max-width: 1024px) {
-    transition: transform 0.3s ease;
-    position: absolute;
-    height: 100%;
-    transform: translateX(
-      ${(props) => (props.showForm ? "calc(46vw - 200px)" : "100vw")}
-    );
+    margin: auto;
   }
 
   > div {

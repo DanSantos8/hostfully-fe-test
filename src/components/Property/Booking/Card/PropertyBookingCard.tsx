@@ -45,13 +45,13 @@ const PropertyBookingCard: React.FC<PropertyBookingCardsProps> = (props) => {
         <S.Title>{title}</S.Title>
         <Tags
           tags={["Piscina", "Vista para o Mar", "Estacionamento"]}
-          variant="small"
+          variant="medium"
         />
         <S.Text>
           {formatDate(start_date)} - {formatDate(end_date)}
         </S.Text>
         <S.Text>
-          R${price} x {nightsBooked} noites, {guests} guests
+          R${price} x {nightsBooked} nights, {guests} guests
         </S.Text>
         {children}
       </S.Details>

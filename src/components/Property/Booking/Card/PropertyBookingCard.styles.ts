@@ -20,10 +20,10 @@ export const Details = styled.div`
 `
 
 export const Title = styled.span`
-  font-size: ${fontSize("medium")};
+  font-size: ${fontSize("large")};
 `
 
 export const Text = styled.span`
-  font-size: ${fontSize("small")};
+  font-size: ${fontSize("medium")};
   font-weight: ${weight("medium")};
 `

@@ -1,4 +1,6 @@
+import { ACTIONS } from "@/constants/actions"
 import useBookingForm from "@/hooks/useBookingForm"
+import useBookingParams from "@/hooks/useBookingParams"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
 import {
@@ -13,8 +15,7 @@ import {
 } from "@/store/Properties/PropertiesThunks"
 
 import moment from "moment"
-import { useCallback, useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 interface usePropertyBookingManagement extends PropertyBookingFormProps {
@@ -28,42 +29,28 @@ const usePropertyBookingManagement = ({
 }: {
   onClose: () => void
 }): usePropertyBookingManagement => {
+  const { getBookingId, removeBookingId } = useBookingParams()
+  const [action, setAction] = useState(ACTIONS.GO_BACK)
   const dispatch = useAppDispatch()
   const { property, status } = useAppSelector(
     (state) => state.propertyManagement
   )
-  const [action, setAction] = useState(0)
-  const navigate = useNavigate()
-  const location = useLocation()
+
   const bookingFormValues = useBookingForm({
     bookedPeriods: property.bookedPeriods,
     cleaningFee: property.cleaningFee,
     maxGuest: property.maxGuest,
     price: property.price,
     regularPrice: property.regularPrice,
+    dateRange: [
+      property.user.bookedPeriod.start_date,
+      property.user.bookedPeriod.end_date,
+    ],
   })
 
   const { user } = property
 
-  const getBookingId = useCallback(() => {
-    const searchParams = new URLSearchParams(location.search)
-    return Number(searchParams.get("bookingId"))
-  }, [location.search])
-
-  const removeBookingId = useCallback(() => {
-    const searchParams = new URLSearchParams(location.search)
-    searchParams.delete("bookingId")
-
-    navigate(
-      {
-        pathname: location.pathname,
-        search: searchParams.toString(),
-      },
-      { replace: true }
-    )
-  }, [location.search, location.pathname, navigate])
-
-  const handleAction = (value: number) => () => setAction(value)
+  const handleAction = (value: ACTIONS) => () => setAction(value)
 
   const handleSubmit = (e: React.FormEvent) => {
     e?.preventDefault()

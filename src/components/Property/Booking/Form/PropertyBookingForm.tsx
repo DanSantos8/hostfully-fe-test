@@ -7,7 +7,8 @@ import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
 import Feedback from "@/components/Feedback/Feedback"
 import { StatusEnum } from "@/constants/status"
-import StateHandler from "@/components/StateHandler/StateHandler"
+import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
+import { ROUTES } from "@/constants/routes"
 
 const PropertyBookingForm = (props: PropertyBookingFormProps) => {
   const {
@@ -40,8 +41,8 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
           <S.FeedbackButtons>
             <p>
               You can check your{" "}
-              <S.Navigate to="/my-bookings">bookings</S.Navigate> or keep{" "}
-              <S.Navigate to="/">discoverying</S.Navigate>
+              <S.Navigate to={ROUTES.MY_BOOKINGS}>bookings</S.Navigate> or keep{" "}
+              <S.Navigate to={ROUTES.HOME}>discoverying</S.Navigate>
             </p>
           </S.FeedbackButtons>
         </Feedback>
@@ -54,8 +55,8 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
           <S.FeedbackButtons>
             <p>
               You can keep navigating into your{" "}
-              <S.Navigate to="/my-bookings">bookings</S.Navigate> or keep{" "}
-              <S.Navigate to="/">discoverying</S.Navigate>
+              <S.Navigate to={ROUTES.MY_BOOKINGS}>bookings</S.Navigate> or keep{" "}
+              <S.Navigate to={ROUTES.HOME}>discoverying</S.Navigate>
             </p>
           </S.FeedbackButtons>
         </Feedback>
@@ -129,16 +130,16 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
         <S.Summary>
           <S.SummaryRow>
             <S.Text>
-              R${currentPrice} x {nightsBooked} noites
+              R${currentPrice} x {nightsBooked} nights
             </S.Text>
             <S.Text>R${totalBookedDaysWithNoCleaningFee}</S.Text>
           </S.SummaryRow>
           <S.SummaryRow>
-            <S.Text>Taxa de serviço do Airbnb</S.Text>
+            <S.Text>Cleaning Fee</S.Text>
             <S.Text>R${totalCleaningFee}</S.Text>
           </S.SummaryRow>
           <S.SummaryRow>
-            <S.Text>Total (sem impostos)</S.Text>
+            <S.Text>Total (no taxes)</S.Text>
             <S.Text>R${totalPriceWithNoTax}</S.Text>
           </S.SummaryRow>
         </S.Summary>

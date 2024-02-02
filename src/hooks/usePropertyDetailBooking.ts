@@ -16,6 +16,7 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
     maxGuest,
     cleaningFee,
     booked_periods: bookedPeriods,
+    availability,
   } = store.property
 
   const bookingFormValues = useBookingForm({
@@ -24,6 +25,7 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
     cleaningFee,
     price,
     regularPrice,
+    dateRange: availability,
   })
 
   const {

@@ -5,6 +5,10 @@ export const Container = styled.div`
   display: flex;
   gap: ${space("xlarge")};
   position: relative;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `
 
 export const Information = styled.div`

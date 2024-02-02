@@ -1,7 +1,7 @@
 import PropertyBookingList from "@/components/Property/Booking/List/PropertyBookingList"
 import * as S from "./MyBookings.styles"
-import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary"
-import ErrorHandler from "@/components/ErrorHandler/ErrorHandler"
+import ErrorBoundary from "@/components/Handlers/ErrorBoundary/ErrorBoundary"
+import ErrorHandler from "@/components/Handlers/ErrorHandler/ErrorHandler"
 
 const MyBookings = () => {
   return (

@@ -2,13 +2,17 @@ import { useAppSelector } from "@/hooks/useStore"
 import PropertyBookingCard from "../Card/PropertyBookingCard"
 import * as S from "./PropertyBookingList.styles"
 import PropertyBookingDialog from "../Dialog/PropertyBookingDialog"
-import StateHandler from "@/components/StateHandler/StateHandler"
+import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
 
 const PropertyBookingList = () => {
   const { myBookings, error } = useAppSelector((state) => state.user)
 
   return (
-    <StateHandler error={error}>
+    <StateHandler
+      error={error}
+      isEmpty={!myBookings.length}
+      emptyMessage="You don't have any booking yet"
+    >
       <S.List>
         {myBookings.map((booking) => {
           const property = booking.property

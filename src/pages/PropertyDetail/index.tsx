@@ -4,8 +4,8 @@ import { useEffect } from "react"
 import { useAppDispatch } from "@/hooks/useStore"
 import Property from "@/components/Property"
 import { fetchPropertyById } from "@/store/Properties/PropertiesThunks"
-import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary"
-import ErrorHandler from "@/components/ErrorHandler/ErrorHandler"
+import ErrorBoundary from "@/components/Handlers/ErrorBoundary/ErrorBoundary"
+import ErrorHandler from "@/components/Handlers/ErrorHandler/ErrorHandler"
 
 const PropertyDetailPage = () => {
   const dispatch = useAppDispatch()

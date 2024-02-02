@@ -1,11 +1,13 @@
 import React, { ReactNode } from "react"
-import Loading from "../Loading/Loading"
+import Loading from "../../Loading/Loading"
 import ErrorHandler from "../ErrorHandler/ErrorHandler"
+import EmptyListHandler from "../EmptyListHandler/EmptyListHandler"
 
 interface StateHandlerProps {
   loading?: boolean
   error?: string | undefined | null
   isEmpty?: boolean
+  emptyMessage?: string
   children: ReactNode
 }
 
@@ -13,6 +15,7 @@ const StateHandler: React.FC<StateHandlerProps> = ({
   loading,
   error,
   isEmpty,
+  emptyMessage = "It seems like your list is empty",
   children,
 }) => {
   if (loading) {
@@ -24,7 +27,7 @@ const StateHandler: React.FC<StateHandlerProps> = ({
   }
 
   if (isEmpty) {
-    return <div>Empty List</div>
+    return <EmptyListHandler message={emptyMessage} />
   }
 
   return children

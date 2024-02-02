@@ -6,7 +6,7 @@ import Rating from "@/components/Rating"
 import Host from "@/components/Host/Host"
 import Tags from "@/components/Tags"
 import { useMemo } from "react"
-import StateHandler from "@/components/StateHandler/StateHandler"
+import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
 import { StatusEnum } from "@/constants/status"
 const PropertyDetail = () => {
   const {
