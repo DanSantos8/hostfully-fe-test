@@ -100,7 +100,6 @@ const useBookingForm = (props: useBookingFormProps) => {
           ? endDate
           : findLastAvailableDate(startDate as Moment)
 
-      console.log(adjustedEndDate)
       setStartDate(startDate)
       setEndDate(adjustedEndDate)
 
@@ -173,6 +172,7 @@ const useBookingForm = (props: useBookingFormProps) => {
     totalCleaningFee,
     totalPriceWithNoTax,
     isOutsideRange,
+    doesOverlap,
   }
 }
 

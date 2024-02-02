@@ -2,7 +2,6 @@ import { DateRangePicker } from "react-dates"
 import * as S from "./PropertyBookingForm.styles"
 import "react-dates/initialize"
 import "react-dates/lib/css/_datepicker.css"
-
 import Loading from "@/components/Loading/Loading"
 import { PropertyBookingFormProps } from "@/models/property.models"
 import Feedback from "@/components/Feedback/Feedback"
@@ -84,6 +83,7 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
             customArrowIcon={<></>}
             displayFormat="MMM, DD - YYYY"
             isDayBlocked={isDayBlocked}
+            numberOfMonths={1}
           />
         </S.Calendar>
         <S.Guests>

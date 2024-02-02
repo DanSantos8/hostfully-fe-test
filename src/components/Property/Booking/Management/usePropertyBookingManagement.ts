@@ -15,7 +15,7 @@ import {
 } from "@/store/Properties/PropertiesThunks"
 
 import moment from "moment"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
 
 interface usePropertyBookingManagement extends PropertyBookingFormProps {
@@ -50,16 +50,33 @@ const usePropertyBookingManagement = ({
 
   const { user } = property
 
+  const bookingPeriod = useMemo(
+    () => ({
+      startDate: moment(bookingFormValues.startDate).format("YYYY-MM-DD"),
+      endDate: moment(bookingFormValues.endDate).format("YYYY-MM-DD"),
+    }),
+    [bookingFormValues.endDate, bookingFormValues.startDate]
+  )
+
   const handleAction = (value: ACTIONS) => () => setAction(value)
 
   const handleSubmit = (e: React.FormEvent) => {
     e?.preventDefault()
     const { start_date, end_date } = user.bookedPeriod
 
-    const newPeriod = {
-      start_date: moment(bookingFormValues.startDate).format("YYYY-MM-DD"),
-      end_date: moment(bookingFormValues.endDate).format("YYYY-MM-DD"),
+    if (
+      bookingPeriod.startDate === "Invalid date" ||
+      bookingPeriod.endDate === "Invalid date"
+    ) {
+      toast.error("Please, select a valid booking period")
+      return
     }
+    const newPeriod = {
+      start_date: bookingPeriod.startDate,
+      end_date: bookingPeriod.endDate,
+    }
+
+    //grabing booked periods to filter before updating
     const newPropertyBookedPeriods = property.bookedPeriods
       .filter(
         (bookedPeriod) =>

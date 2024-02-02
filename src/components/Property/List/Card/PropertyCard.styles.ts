@@ -1,20 +1,14 @@
 import { Link } from "react-router-dom"
-import {
-  colors,
-  rounded,
-  space,
-  toRem,
-  weight,
-} from "../../../../utils/helpers"
+import { colors, rounded, space, weight } from "../../../../utils/helpers"
 import styled from "styled-components"
 
 export const Container = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: ${space("medium")};
-  max-width: ${toRem(375)};
   height: 100%;
   width: 100%;
+  margin: auto;
 `
 export const Image = styled.img`
   border-radius: ${rounded("medium")};

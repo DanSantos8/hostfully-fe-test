@@ -61,6 +61,10 @@ export const Calendar = styled.div`
     text-align: center;
     width: 100%;
   }
+
+  .CalendarMonth .CalendarMonth_1 {
+    display: none;
+  }
 `
 
 export const CalendarRow = styled.div`
