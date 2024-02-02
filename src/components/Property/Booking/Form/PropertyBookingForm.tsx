@@ -33,7 +33,17 @@ const PropertyBookingForm = (props: PropertyBookingFormProps) => {
 
   const renderForm = () => {
     if (success) {
-      return <Feedback />
+      return (
+        <Feedback message="Property booked!">
+          <S.FeedbackButtons>
+            <p>
+              You can check your{" "}
+              <S.Navigate to="/my-bookings">bookings</S.Navigate> or keep{" "}
+              <S.Navigate to="/">discoverying</S.Navigate>
+            </p>
+          </S.FeedbackButtons>
+        </Feedback>
+      )
     }
 
     return (

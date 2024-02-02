@@ -6,6 +6,8 @@ export type Theme = {
     text: string
     lightText: string
     border: string
+    error: string
+    success: string
   }
   spacing: {
     xxsmall: string

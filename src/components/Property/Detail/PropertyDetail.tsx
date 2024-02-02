@@ -8,7 +8,10 @@ import Tags from "@/components/Tags"
 import { useMemo } from "react"
 import StateHandler from "@/components/StateHandler/StateHandler"
 const PropertyDetail = () => {
-  const { loading, error } = useAppSelector((state) => state.properties)
+  const {
+    loadings: { detail: loadingDetail },
+    errors: { detail: errorDetail },
+  } = useAppSelector((state) => state.propertyDetail)
   const {
     images,
     location,
@@ -20,7 +23,7 @@ const PropertyDetail = () => {
     maxGuest,
     beds,
     bedrooms,
-  } = useAppSelector((state) => state.properties.propertyDetail)
+  } = useAppSelector((state) => state.propertyDetail.property)
 
   const propertyTags = useMemo(
     () => ({
@@ -41,7 +44,7 @@ const PropertyDetail = () => {
 
   return (
     <>
-      <StateHandler error={error} loading={loading}>
+      <StateHandler error={errorDetail} loading={loadingDetail}>
         <PropertyCarousel images={images} />
         <S.Content>
           <S.Title>

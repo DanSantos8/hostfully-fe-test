@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 import PropertiesSlice from "./Properties/PropertiesSlice"
 import UserSlice from "./User/UserSlice"
 import ManagementSlice from "./Management/ManagementSlice"
+import PropertyDetailSlice from "./PropertyDetail/PropertyDetailSlice"
 
 export const store = configureStore({
   reducer: {
     properties: PropertiesSlice,
     user: UserSlice,
     propertyManagement: ManagementSlice,
+    propertyDetail: PropertyDetailSlice,
   },
 })
 

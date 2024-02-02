@@ -1,7 +1,7 @@
 import { BookedPeriod } from "./property.models"
 
 export type AddBookedPeriodModel = {
-  propertyId: string
+  propertyId: number
   bookedPeriod: BookedPeriod
   newPeriod: BookedPeriod[]
   nightsBooked: number

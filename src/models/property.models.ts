@@ -23,7 +23,7 @@ export type BookedPeriod = {
 }
 
 export interface Property {
-  id: string
+  id: number | null
   title: string
   location: string
   description: string

@@ -169,7 +169,7 @@ const propertyManagementSlice = createSlice({
         state.property = {
           ...state.property,
           id: payload.id,
-          propertyId: Number(payload.property.id),
+          propertyId: payload.property.id as number,
           bookedPeriods: payload.property.booked_periods,
           cleaningFee: payload.property.cleaningFee,
           maxGuest: payload.property.maxGuest,

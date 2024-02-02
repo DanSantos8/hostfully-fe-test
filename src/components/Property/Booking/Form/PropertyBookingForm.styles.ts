@@ -1,4 +1,5 @@
 import { colors, fontSize, rounded, space, weight } from "@/utils/helpers"
+import { Link } from "react-router-dom"
 import styled, { css } from "styled-components"
 
 export const Container = styled.div`
@@ -136,4 +137,23 @@ export const SummaryRow = styled.div`
   display: flex;
   justify-content: space-between;
   gap: ${space("medium")};
+`
+
+export const FeedbackButtons = styled.div`
+  display: flex;
+  gap: ${space("medium")};
+
+  p {
+    font-size: ${fontSize("medium")};
+    text-align: center;
+  }
+`
+
+export const Navigate = styled(Link)`
+  transition: font-size 0.1s ease;
+  color: #f0f0f0;
+
+  &:hover {
+    font-size: ${fontSize("large")};
+  }
 `

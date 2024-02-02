@@ -4,14 +4,12 @@ import { useAppSelector } from "@/hooks/useStore"
 import StateHandler from "@/components/StateHandler/StateHandler"
 
 const PropertyList = () => {
-  const { propertiesList, error, loading } = useAppSelector(
-    (state) => state.properties
-  )
+  const { list, error, loading } = useAppSelector((state) => state.properties)
 
   return (
     <S.Container data-testid="property-list">
       <StateHandler loading={loading} error={error}>
-        {propertiesList.map((property) => (
+        {list.map((property) => (
           <PropertyCard key={property.id} {...property} />
         ))}
       </StateHandler>

@@ -1,6 +1,5 @@
 import { BookedPeriod, Booking } from "@/models/property.models"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { addUserBookedPeriod } from "../Properties/PropertiesSlice"
 import {
   deletePropertyBooking,
   updatePropertyBooking,
@@ -10,6 +9,7 @@ import {
   MyBooking,
   UpdatePropertyBookingModel,
 } from "@/models/user.models"
+import { addUserBookedPeriod } from "../PropertyDetail/PropertyDetailSlice"
 
 interface UserState {
   id: number
@@ -33,7 +33,7 @@ const updateBookedPeriodsInBookings = (
   newBookedPeriods: BookedPeriod[]
 ): Booking[] => {
   return bookings.map((booking) => {
-    if (Number(booking.property.id) === propertyId) {
+    if (booking.property.id === propertyId) {
       return {
         ...booking,
         property: {
@@ -59,7 +59,7 @@ const userSlice = createSlice({
           state.myBookings = [
             ...updateBookedPeriodsInBookings(
               state.myBookings,
-              Number(payload.property.id),
+              payload.property.id as number,
               payload.property.booked_periods
             ),
             {
@@ -75,7 +75,6 @@ const userSlice = createSlice({
       .addCase(
         updatePropertyBooking,
         (state, action: PayloadAction<UpdatePropertyBookingModel>) => {
-          state.loading = false
           const { myBooking, property } = action.payload
           const { bookingId } = myBooking
 
@@ -91,7 +90,6 @@ const userSlice = createSlice({
           })
         }
       )
-
       .addCase(
         deletePropertyBooking,
         (state, action: PayloadAction<DeletePropertyBookingModel>) => {
@@ -99,7 +97,7 @@ const userSlice = createSlice({
           state.myBookings = state.myBookings
             .filter((booking) => booking.id !== payload.user.bookingId)
             .map((booking) => {
-              if (Number(booking.property.id) === payload.user.propertyId) {
+              if (booking.property.id === payload.user.propertyId) {
                 return {
                   ...booking,
                   property: {

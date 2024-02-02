@@ -12,7 +12,7 @@ interface usePropertyDetailBooking extends PropertyBookingFormProps {
 
 const usePropertyDetailBooking = (): usePropertyDetailBooking => {
   const [success, setSuccess] = useState(false)
-  const store = useAppSelector((state) => state.properties)
+  const store = useAppSelector((state) => state.propertyDetail)
   const {
     id,
     price,
@@ -20,7 +20,7 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
     maxGuest,
     cleaningFee,
     booked_periods: bookedPeriods,
-  } = store.propertyDetail
+  } = store.property
 
   const bookingFormValues = useBookingForm({
     bookedPeriods,
@@ -30,7 +30,9 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
     regularPrice,
   })
 
-  const { loading } = store
+  const {
+    loadings: { bookingForm },
+  } = store
 
   const dispatch = useAppDispatch()
 
@@ -41,11 +43,13 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
       start_date: format(bookingFormValues.startDate as Moment),
       end_date: format(bookingFormValues.endDate as Moment),
     }
+
+    //! reusing bookedPeriods from Property Detail store to concat new Booked Period
     const newPeriod = [...bookedPeriods, bookedPeriod]
 
     dispatch(
       addBookedPeriod({
-        propertyId: id,
+        propertyId: id as number,
         newPeriod,
         bookedPeriod,
         guests: bookingFormValues.guests,
@@ -59,7 +63,7 @@ const usePropertyDetailBooking = (): usePropertyDetailBooking => {
     price,
     regularPrice,
     maxGuest,
-    loading,
+    loading: bookingForm,
     ...bookingFormValues,
     handleSubmit,
     success,

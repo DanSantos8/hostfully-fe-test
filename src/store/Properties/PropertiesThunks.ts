@@ -16,12 +16,12 @@ export const fetchProperties = createAsyncThunk(
 )
 
 export const fetchPropertyById = createAsyncThunk(
-  "properties/fetchPropertyById",
+  "propertyDetail/fetchPropertyById",
   fetchPropertyByIdApi
 )
 
 export const addBookedPeriod = createAsyncThunk(
-  "properties/addBookedPeriod",
+  "propertyDetail/addBookedPeriod",
   async (props: AddBookedPeriodModel) => {
     const { newPeriod, propertyId, bookedPeriod, guests, nightsBooked } = props
 

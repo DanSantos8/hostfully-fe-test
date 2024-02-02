@@ -2,12 +2,14 @@ import { Theme } from "./models/theme.models"
 
 const theme: Theme = {
   colors: {
-    primary: "#FF5A5F",
-    secondary: "#00A699",
+    primary: "#2D2AA5",
+    secondary: "#70C7A3",
     background: "#FFF",
     text: "#333",
     lightText: "#767676",
     border: "#EBEBEB",
+    error: "D9534F",
+    success: "#5CB85C",
   },
   spacing: {
     xxsmall: "0.25rem",
