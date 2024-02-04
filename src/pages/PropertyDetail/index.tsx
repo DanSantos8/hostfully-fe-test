@@ -4,8 +4,6 @@ import { useEffect } from "react"
 import { useAppDispatch } from "@/hooks/useStore"
 import Property from "@/components/Property"
 import { fetchPropertyById } from "@/store/Properties/PropertiesThunks"
-import ErrorBoundary from "@/components/Handlers/ErrorBoundary/ErrorBoundary"
-import ErrorHandler from "@/components/Handlers/ErrorHandler/ErrorHandler"
 
 const PropertyDetailPage = () => {
   const dispatch = useAppDispatch()
@@ -18,17 +16,13 @@ const PropertyDetailPage = () => {
   }, [dispatch, id])
 
   return (
-    <ErrorBoundary
-      fallback={<ErrorHandler message="Oops, something went wrong" />}
-    >
-      <S.Container>
-        <S.Information>
-          <Property.Detail />
-        </S.Information>
+    <S.Container>
+      <S.Information>
+        <Property.Detail />
+      </S.Information>
 
-        <Property.Booking />
-      </S.Container>
-    </ErrorBoundary>
+      <Property.Booking />
+    </S.Container>
   )
 }
 

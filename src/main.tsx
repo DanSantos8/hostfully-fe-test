@@ -7,6 +7,8 @@ import theme from "./theme.ts"
 import { GlobalStyles } from "./GlobalStyle.ts"
 import { Provider } from "react-redux"
 import { store } from "./store/index.ts"
+import ErrorBoundary from "./components/Handlers/ErrorBoundary/ErrorBoundary.tsx"
+import ErrorHandler from "./components/Handlers/ErrorHandler/ErrorHandler.tsx"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -14,7 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <GlobalStyles />
-          <App />
+          <ErrorBoundary
+            fallback={<ErrorHandler message="Oops, something went wrong." />}
+          >
+            <App />
+          </ErrorBoundary>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

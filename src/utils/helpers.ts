@@ -1,3 +1,4 @@
+import moment from "moment"
 import { Theme } from "../models/theme.models"
 
 export const space =
@@ -27,8 +28,17 @@ export const weight =
 
 export const toRem = (pixels: number): string => `${pixels / 16}rem`
 
-export const currency = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  maximumFractionDigits: 0,
-})
+export const calculateYearsAndMonthsFromDate = (inputDate: string) => {
+  const startDate = moment(inputDate)
+
+  const currentDate = moment()
+
+  const years = currentDate.diff(startDate, "years")
+  startDate.add(years, "years")
+  const months = currentDate.diff(startDate, "months")
+
+  return {
+    years,
+    months,
+  }
+}

@@ -58,7 +58,11 @@ const PropertyDetail = () => {
           <Rating rating={rating} />
         </S.Content>
         <S.Content>
-          <Host isSuperHost={host.superhost} name={host.name} />
+          <Host
+            isSuperHost={host.superhost}
+            name={host.name}
+            memberSince={host.member_since}
+          />
         </S.Content>
         <S.Content>
           <S.Description>{description}</S.Description>
