@@ -1,4 +1,4 @@
-## ReactJS Boilerplate with Vite
+## ReactJS Boilerplate with Vite - Hostfully test
 
 This is a ReactJS boilerplate project configured with Vite for quick and easy setup of your React applications. It includes various development tools and libraries to help you get started with building modern React applications. Below you'll find instructions on how to get started with this project and an overview of the technologies used.
 
