@@ -7,12 +7,11 @@ import {
   deletePropertyBookedPeriod,
   updatePropertyBookedPeriod,
 } from "@/store/Properties/PropertiesThunks"
-
 import {
   deleteUserPropertyBooking,
   fetchPropertyFromMyBookings,
   updateUserPropertyBooking,
-} from "@/store/PropertyManagement/PropertyManagementSlice"
+} from "@/store/PropertyManagement/PropertyManagementThunks"
 
 import moment from "moment"
 import { useCallback, useEffect, useMemo, useState } from "react"
