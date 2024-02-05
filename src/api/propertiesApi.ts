@@ -7,7 +7,7 @@ export const fetchPropertiesApi = async (): Promise<Property[]> => {
 }
 
 export const fetchPropertyByIdApi = async (
-  propertyId: string
+  propertyId: number
 ): Promise<Property> => {
   const response = await client.get(`properties/${propertyId}`)
   if (response.status !== 200) {

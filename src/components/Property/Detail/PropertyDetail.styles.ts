@@ -1,4 +1,4 @@
-import { colors, fontSize, space, weight } from "@/utils/helpers"
+import { colors, fontSize, space, toRem, weight } from "@/utils/helpers"
 import styled from "styled-components"
 
 export const Content = styled.div`
@@ -8,6 +8,16 @@ export const Content = styled.div`
   gap: ${space("xxsmall")};
   padding-bottom: ${space("large")};
   border-bottom: 1px solid #ccc;
+`
+export const Information = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${space("large")};
+  flex: 1;
+  max-width: ${toRem(800)};
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
 `
 
 export const Title = styled.h4`

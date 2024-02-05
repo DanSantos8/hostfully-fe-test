@@ -1,10 +1,8 @@
 import { Property } from "@/models/property.models"
 import { createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit"
-import {
-  addBookedPeriod,
-  fetchPropertyById,
-} from "../Properties/PropertiesThunks"
+
 import { Status, StatusEnum } from "@/constants/status"
+import { addBookedPeriod, fetchPropertyById } from "./PropertyDetailThunks"
 
 type PropertiesState = {
   property: Property

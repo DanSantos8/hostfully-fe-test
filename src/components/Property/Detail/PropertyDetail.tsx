@@ -44,11 +44,11 @@ const PropertyDetail = () => {
   )
 
   return (
-    <>
-      <StateHandler
-        error={errorDetail}
-        loading={status.detail === StatusEnum.LOADING}
-      >
+    <StateHandler
+      error={errorDetail}
+      loading={status.detail === StatusEnum.LOADING}
+    >
+      <S.Information>
         <PropertyCarousel images={images} />
         <S.Content>
           <S.Title>
@@ -68,8 +68,8 @@ const PropertyDetail = () => {
           <S.Description>{description}</S.Description>
           <Tags tags={amenities} variant="large" />
         </S.Content>
-      </StateHandler>
-    </>
+      </S.Information>
+    </StateHandler>
   )
 }
 

@@ -1,9 +1,9 @@
-import { BookedPeriod, Property } from "@/models/property.models"
+import { BookedPeriod } from "@/models/property.models"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { RootState } from ".."
 import axios from "axios"
-import client from "@/api/api"
 import { Status, StatusEnum } from "@/constants/status"
+import { fetchPropertyByIdApi } from "@/api/propertiesApi"
 
 type PropertyManagementState = {
   property: {
@@ -90,7 +90,7 @@ export const updateUserPropertyBooking = createAsyncThunk(
       nightsBooked,
     } = property
     try {
-      //here we should call an endpoint to mutate user booking
+      //here we should call an endpoint (deletePropertyBookingApi) to mutate user booking
       //...
 
       const response = {
@@ -127,9 +127,9 @@ export const deleteUserPropertyBooking = createAsyncThunk(
   async (props: deleteUserPropertyBookingProps, { rejectWithValue }) => {
     const { period, propertyId, bookingId } = props
     try {
-      const res = await client.get<Property>(`/properties/${propertyId}`)
+      const res = await fetchPropertyByIdApi(propertyId)
 
-      const updatedPropertyBookedPeriods = res.data.booked_periods.filter(
+      const updatedPropertyBookedPeriods = res.booked_periods.filter(
         (response) =>
           response.start_date !== period.start_date &&
           response.end_date !== period.end_date
