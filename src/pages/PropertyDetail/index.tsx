@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom"
 import * as S from "./PropertyDetailPage.styles"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/hooks/useStore"
-import Property from "@/components/Property"
 import { fetchPropertyById } from "@/store/PropertyDetail/PropertyDetailThunks"
+import PropertyDetail from "@/components/Property/Detail/PropertyDetail"
+import PropertyDetailBooking from "@/components/Property/Detail/Booking/PropertyDetailBooking"
 
 const PropertyDetailPage = () => {
   const dispatch = useAppDispatch()
@@ -17,8 +18,8 @@ const PropertyDetailPage = () => {
 
   return (
     <S.Container>
-      <Property.Detail />
-      <Property.Booking />
+      <PropertyDetail />
+      <PropertyDetailBooking />
     </S.Container>
   )
 }

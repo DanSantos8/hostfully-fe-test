@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import PropertiesSlice from "./Properties/PropertiesSlice"
 import UserSlice from "./User/UserSlice"
-import ManagementSlice from "./Management/ManagementSlice"
+import ManagementSlice from "./PropertyManagement/PropertyManagementSlice"
 import PropertyDetailSlice from "./PropertyDetail/PropertyDetailSlice"
 
 export const store = configureStore({

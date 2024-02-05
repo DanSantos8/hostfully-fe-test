@@ -3,12 +3,7 @@ import useBookingForm from "@/hooks/useBookingForm"
 import useBookingParams from "@/hooks/useBookingParams"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
-import {
-  deleteUserPropertyBooking,
-  fetchPropertyFromMyBookings,
-  updateUserPropertyBooking,
-  updateUserPropertyBookingProps,
-} from "@/store/Management/ManagementSlice"
+
 import {
   deletePropertyBookedPeriod,
   updatePropertyBookedPeriod,
@@ -33,7 +28,7 @@ const usePropertyBookingManagement = ({
   const [action, setAction] = useState(ACTIONS.GO_BACK)
   const dispatch = useAppDispatch()
   const { property, status } = useAppSelector(
-    (state) => state.propertyManagement
+    (state) => state.propertyBookingManagement
   )
 
   const bookingFormValues = useBookingForm({
