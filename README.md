@@ -8,7 +8,7 @@ Follow these steps to set up and run the project on your local machine:
 
 - git clone
 - pnpm i / npm i / yarn (I strongly recommend pnpm)
-- pnpm run json server in a terminal
+- pnpm run json-server in a terminal
 - pnpm run dev in another terminal
 
 ## Project Structure
