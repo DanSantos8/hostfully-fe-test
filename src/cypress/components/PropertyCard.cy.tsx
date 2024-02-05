@@ -9,7 +9,7 @@ describe("PropertyCard Component", () => {
 
   beforeEach(() => {
     propertyCardProps = {
-      id: "1",
+      id: 1,
       location: "Test Location",
       images: ["image1.jpg", "image2.jpg"],
       price: 100,
