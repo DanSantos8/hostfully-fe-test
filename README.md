@@ -23,7 +23,7 @@ The project is organized with the following key directories:
 - src/pages: Pages Components for the application.
 - src/models: Types and interfaces.
 - src/stories: Documentation for components.
-- src/cypress: Folder to enhace all the e2e or unit tests
+- src/cypress: Folder to define all e2e or unit tests
 - src/utils: functions that can be helpful
 - src/api: well, there are some files to help performing requests with axios
 
