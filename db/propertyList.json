@@ -27,24 +27,7 @@
         "2024-04-01",
         "2024-04-10"
       ],
-      "booked_periods": [
-        {
-          "start_date": "2024-04-01",
-          "end_date": "2024-04-10"
-        },
-        {
-          "start_date": "2024-04-14",
-          "end_date": "2024-04-20"
-        },
-        {
-          "start_date": "2024-04-21",
-          "end_date": "2024-04-25"
-        },
-        {
-          "start_date": "2024-04-28",
-          "end_date": "2024-04-30"
-        }
-      ],
+      "booked_periods": [],
       "images": [
         "https://images.pexels.com/photos/3288100/pexels-photo-3288100.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/3288102/pexels-photo-3288102.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -85,18 +68,6 @@
         "2024-03-25"
       ],
       "booked_periods": [
-        {
-          "start_date": "2024-03-15",
-          "end_date": "2024-03-20"
-        },
-        {
-          "start_date": "2024-03-21",
-          "end_date": "2024-03-23"
-        },
-        {
-          "start_date": "2024-03-10",
-          "end_date": "2024-03-13"
-        }
       ],
       "images": [
         "https://images.pexels.com/photos/3288104/pexels-photo-3288104.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -135,7 +106,8 @@
         "2024-03-10",
         "2024-03-20"
       ],
-      "booked_periods": [],
+      "booked_periods": [
+      ],
       "images": [
         "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "https://images.pexels.com/photos/87223/pexels-photo-87223.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -174,10 +146,6 @@
         "2024-04-30"
       ],
       "booked_periods": [
-        {
-          "start_date": "2024-04-01",
-          "end_date": "2024-04-06"
-        }
       ],
       "images": [
         "https://cf.bstatic.com/xdata/images/hotel/max1024x768/410263732.jpg?k=d8b952f3cc14cd05008460f3759b029945340217e0122d83b03a15c1671d5306&o=&hp=1",
@@ -215,7 +183,12 @@
         "2024-04-10",
         "2024-04-20"
       ],
-      "booked_periods": [],
+      "booked_periods": [
+        {
+          "start_date": "2024-04-10",
+          "end_date": "2024-04-20"
+        }
+      ],
       "images": [
         "https://a0.muscache.com/im/pictures/b442c38f-18f8-45c8-b407-e7a7aeea9ace.jpg?im_w=720",
         "https://a0.muscache.com/im/pictures/b4bf65e1-2eb4-47b3-b21e-1d44186fadb1.jpg?im_w=720"
@@ -253,10 +226,6 @@
         "2024-05-05"
       ],
       "booked_periods": [
-        {
-          "start_date": "2024-04-25",
-          "end_date": "2024-05-05"
-        }
       ],
       "images": [
         "https://gallery.streamlinevrs.com/units-gallery/00/06/71/image_155482781.jpeg",

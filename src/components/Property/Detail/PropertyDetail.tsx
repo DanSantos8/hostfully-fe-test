@@ -8,6 +8,7 @@ import Tags from "@/components/Tags"
 import { useMemo } from "react"
 import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
 import { StatusEnum } from "@/constants/status"
+
 const PropertyDetail = () => {
   const {
     status,

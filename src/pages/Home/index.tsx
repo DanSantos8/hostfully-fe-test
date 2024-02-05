@@ -1,8 +1,8 @@
-import Property from "@/components/Property"
 import * as S from "./Home.styles"
 import { useAppDispatch } from "@/hooks/useStore"
 import { useEffect } from "react"
 import { fetchProperties } from "@/store/Properties/PropertiesThunks"
+import PropertyList from "@/components/Property/List/PropertyList"
 
 const Home = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <S.Container>
-      <Property.List />
+      <PropertyList />
     </S.Container>
   )
 }

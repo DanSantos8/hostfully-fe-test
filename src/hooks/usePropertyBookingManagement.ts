@@ -1,16 +1,21 @@
-import { ACTIONS } from "@/constants/actions"
+import { MANAGEMENT_ACTIONS } from "@/constants/management"
 import useBookingForm from "@/hooks/useBookingForm"
 import useBookingParams from "@/hooks/useBookingParams"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
-
 import {
   deletePropertyBookedPeriod,
   updatePropertyBookedPeriod,
 } from "@/store/Properties/PropertiesThunks"
 
+import {
+  deleteUserPropertyBooking,
+  fetchPropertyFromMyBookings,
+  updateUserPropertyBooking,
+} from "@/store/PropertyManagement/PropertyManagementSlice"
+
 import moment from "moment"
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
 
 interface usePropertyBookingManagement extends PropertyBookingFormProps {
@@ -25,7 +30,7 @@ const usePropertyBookingManagement = ({
   onClose: () => void
 }): usePropertyBookingManagement => {
   const { getBookingId, removeBookingId } = useBookingParams()
-  const [action, setAction] = useState(ACTIONS.GO_BACK)
+  const [action, setAction] = useState(MANAGEMENT_ACTIONS.GO_BACK)
   const dispatch = useAppDispatch()
   const { property, status } = useAppSelector(
     (state) => state.propertyBookingManagement
@@ -53,59 +58,74 @@ const usePropertyBookingManagement = ({
     [bookingFormValues.endDate, bookingFormValues.startDate]
   )
 
-  const handleAction = (value: ACTIONS) => () => setAction(value)
+  const handleAction = (value: MANAGEMENT_ACTIONS) => () => setAction(value)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e?.preventDefault()
-    const { start_date, end_date } = user.bookedPeriod
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e?.preventDefault()
+      const { start_date, end_date } = user.bookedPeriod
 
-    if (
-      bookingPeriod.startDate === "Invalid date" ||
-      bookingPeriod.endDate === "Invalid date"
-    ) {
-      toast.error("Please, select a valid booking period")
-      return
-    }
-    const newPeriod = {
-      start_date: bookingPeriod.startDate,
-      end_date: bookingPeriod.endDate,
-    }
+      if (
+        bookingPeriod.startDate === "Invalid date" ||
+        bookingPeriod.endDate === "Invalid date"
+      ) {
+        toast.error("Please, select a valid booking period")
+        return
+      }
+      const newPeriod = {
+        start_date: bookingPeriod.startDate,
+        end_date: bookingPeriod.endDate,
+      }
 
-    //grabing booked periods to filter before updating
-    const newPropertyBookedPeriods = property.bookedPeriods
-      .filter(
-        (bookedPeriod) =>
-          bookedPeriod.start_date !== start_date &&
-          bookedPeriod.end_date !== end_date
-      )
-      .concat(newPeriod)
-
-    const updateUserPropertyBookingProps: updateUserPropertyBookingProps = {
-      bookedPeriod: newPeriod,
-      guests: bookingFormValues.guests,
-      newBookedPeriods: newPropertyBookedPeriods,
-      bookingId: property.id,
-      propertyId: property.propertyId,
-      nightsBooked: bookingFormValues.nightsBooked,
-    }
-
-    dispatch(updateUserPropertyBooking(updateUserPropertyBookingProps))
-      .unwrap()
-      .then((data) => {
-        dispatch(
-          updatePropertyBookedPeriod({
-            updatedBookedPeriods: data.property.newBookedPeriods,
-            propertyId: data.property.propertyId,
-          })
+      //grabing booked periods to filter before updating
+      const newPropertyBookedPeriods = property.bookedPeriods
+        .filter(
+          (bookedPeriod) =>
+            bookedPeriod.start_date !== start_date &&
+            bookedPeriod.end_date !== end_date
         )
-        removeBookingId()
-        onClose()
-        toast.success("Booking updated!")
-      })
-      .catch(() => toast.success("Error trying to update your booking :("))
-  }
+        .concat(newPeriod)
 
-  const handleDeleteBooking = () => {
+      const updateUserPropertyBookingProps = {
+        bookedPeriod: newPeriod,
+        guests: bookingFormValues.guests,
+        newBookedPeriods: newPropertyBookedPeriods,
+        bookingId: property.id,
+        propertyId: property.propertyId,
+        nightsBooked: bookingFormValues.nightsBooked,
+      }
+
+      dispatch(updateUserPropertyBooking(updateUserPropertyBookingProps))
+        .unwrap()
+        .then((data) => {
+          dispatch(
+            updatePropertyBookedPeriod({
+              updatedBookedPeriods: data.property.newBookedPeriods,
+              propertyId: data.property.propertyId,
+            })
+          )
+          removeBookingId()
+          onClose()
+          toast.success("Booking updated!")
+        })
+        .catch(() => toast.success("Error trying to update your booking :("))
+    },
+    [
+      bookingFormValues.guests,
+      bookingFormValues.nightsBooked,
+      bookingPeriod.endDate,
+      bookingPeriod.startDate,
+      dispatch,
+      onClose,
+      property.bookedPeriods,
+      property.id,
+      property.propertyId,
+      removeBookingId,
+      user.bookedPeriod,
+    ]
+  )
+
+  const handleDeleteBooking = useCallback(() => {
     dispatch(
       deleteUserPropertyBooking({
         bookingId: property.id,
@@ -126,7 +146,14 @@ const usePropertyBookingManagement = ({
         toast.success("Booking canceled!")
       })
       .catch(() => toast.error("Error trying to cancel booking :("))
-  }
+  }, [
+    dispatch,
+    onClose,
+    property.id,
+    property.propertyId,
+    property.user.bookedPeriod,
+    removeBookingId,
+  ])
 
   useEffect(() => {
     dispatch(fetchPropertyFromMyBookings(getBookingId()))

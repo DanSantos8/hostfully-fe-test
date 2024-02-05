@@ -1,7 +1,7 @@
 import * as S from "./PropertyList.styles"
-import PropertyCard from "./Card/PropertyCard"
 import { useAppSelector } from "@/hooks/useStore"
 import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
+import PropertyCard from "./Card/PropertyCard"
 
 const PropertyList = () => {
   const { list, error, loading } = useAppSelector((state) => state.properties)
