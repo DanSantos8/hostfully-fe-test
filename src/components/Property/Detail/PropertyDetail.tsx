@@ -8,6 +8,7 @@ import Tags from "@/components/Tags"
 import { useMemo } from "react"
 import StateHandler from "@/components/Handlers/StateHandler/StateHandler"
 import { StatusEnum } from "@/constants/status"
+
 const PropertyDetail = () => {
   const {
     status,
@@ -44,11 +45,11 @@ const PropertyDetail = () => {
   )
 
   return (
-    <>
-      <StateHandler
-        error={errorDetail}
-        loading={status.detail === StatusEnum.LOADING}
-      >
+    <StateHandler
+      error={errorDetail}
+      loading={status.detail === StatusEnum.LOADING}
+    >
+      <S.Information>
         <PropertyCarousel images={images} />
         <S.Content>
           <S.Title>
@@ -68,8 +69,8 @@ const PropertyDetail = () => {
           <S.Description>{description}</S.Description>
           <Tags tags={amenities} variant="large" />
         </S.Content>
-      </StateHandler>
-    </>
+      </S.Information>
+    </StateHandler>
   )
 }
 

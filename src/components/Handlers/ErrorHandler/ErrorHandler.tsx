@@ -1,5 +1,4 @@
-import { ROUTES } from "@/constants/routes"
-import { Container, GoBack, Message } from "./ErrorHandler.styles"
+import { Container, Message } from "./ErrorHandler.styles"
 import { MdErrorOutline } from "react-icons/md"
 
 interface ErrorHandler {
@@ -12,7 +11,6 @@ const ErrorHandler = (props: ErrorHandler) => {
     <Container data-testid="error-handler">
       <MdErrorOutline size={50} />
       <Message>{message}</Message>
-      <GoBack to={ROUTES.HOME}>Go back home</GoBack>
     </Container>
   )
 }

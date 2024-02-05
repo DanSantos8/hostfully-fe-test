@@ -13,6 +13,7 @@ interface PropertyBookingDialog {
   price: number
   images: string[]
   id: number
+  amenities: string[]
 }
 
 const PropertyBookingDialog = (props: PropertyBookingDialog) => {

@@ -4,7 +4,7 @@ import * as S from "./PropertyCard.styles"
 import { useMemo } from "react"
 
 export type PropertyCardProps = {
-  id: string
+  id: number | null
   images: string[]
   location: string
   rating: number

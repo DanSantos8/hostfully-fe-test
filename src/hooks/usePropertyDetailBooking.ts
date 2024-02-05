@@ -1,7 +1,7 @@
 import useBookingForm from "@/hooks/useBookingForm"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { PropertyBookingFormProps } from "@/models/property.models"
-import { addBookedPeriod } from "@/store/Properties/PropertiesThunks"
+import { addBookedPeriod } from "@/store/PropertyDetail/PropertyDetailThunks"
 import moment from "moment"
 import { Moment } from "moment"
 import { toast } from "react-toastify"

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import {
   deletePropertyBooking,
   updatePropertyBooking,
-} from "../Management/ManagementSlice"
+} from "../PropertyManagement/PropertyManagementSlice"
 import {
   DeletePropertyBookingModel,
   MyBooking,

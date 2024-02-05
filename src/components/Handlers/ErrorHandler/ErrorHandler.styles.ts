@@ -8,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   gap: ${space("xlarge")};
   margin: auto;
+  padding: ${space("large")};
 
   svg {
     margin: auto;

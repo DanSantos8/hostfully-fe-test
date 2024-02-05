@@ -7,19 +7,20 @@ This is a ReactJS boilerplate project configured with Vite for quick and easy se
 Follow these steps to set up and run the project on your local machine:
 
 - git clone
-- pnpm i - npm i - yarn (I strongly recommend pnpm)
-- pnpm run json-server in a terminal
+- pnpm i / npm i / yarn (I strongly recommend pnpm)
+- pnpm run json server in a terminal
 - pnpm run dev in another terminal
 
 ## Project Structure
 
 The project is organized with the following key directories:
 
+- src/App.tsx - root component to include new routes
 - src: Contains your application source code.
 - src/components: all the components used across the application.
 - src/hooks: all the functions to encapsulate logic that can be reusable
 - src/store: Contains Redux store configuration and slices.
-- src/routes: Routes for the application.
+- src/pages: Pages Components for the application.
 - src/models: Types and interfaces.
 - src/stories: Documentation for components.
 - src/cypress: Folder to enhace all the e2e or unit tests
@@ -43,3 +44,7 @@ The project is organized with the following key directories:
 - Storybook: A development environment for UI components.
 - Cypress: An end-to-end testing framework for modern web applications.
 - JSON Server: A fake REST API server for mocking API requests.
+
+## Notion with documentation
+
+- https://www.notion.so/Documentation-Hostfully-Frontend-Test-6e81214f230447d28c2c6bea5ddec171?pvs=4
