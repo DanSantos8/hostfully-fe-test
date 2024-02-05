@@ -35,8 +35,22 @@ const usePropertyBookingManagement = ({
     (state) => state.propertyBookingManagement
   )
 
+  const bookedPeriods = useMemo(
+    () =>
+      property.bookedPeriods.filter(
+        (bookedPeriod) =>
+          bookedPeriod.start_date !== property.user.bookedPeriod.start_date &&
+          bookedPeriod.end_date !== property.user.bookedPeriod.end_date
+      ),
+    [
+      property.bookedPeriods,
+      property.user.bookedPeriod.end_date,
+      property.user.bookedPeriod.start_date,
+    ]
+  )
+
   const bookingFormValues = useBookingForm({
-    bookedPeriods: property.bookedPeriods,
+    bookedPeriods: bookedPeriods,
     cleaningFee: property.cleaningFee,
     maxGuest: property.maxGuest,
     price: property.price,
