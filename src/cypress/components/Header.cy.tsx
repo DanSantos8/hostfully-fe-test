@@ -15,10 +15,6 @@ describe("Header Component", () => {
     )
   })
 
-  it("successfully renders", () => {
-    cy.get("header").should("exist")
-  })
-
   it("renders the logo image correctly", () => {
     cy.get("header")
       .find("img")
